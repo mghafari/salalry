@@ -1,0 +1,233 @@
+@media (-webkit-device-pixel-ratio: 1.25) {
+  :root {
+    zoom: 0.8;
+  }
+}
+body {
+  color: #7d8592;
+  direction: rtl;
+  font-family: iranyekan;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+
+  font-weight: 400;
+  line-height: 1.4;
+}
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+div.clr {
+  width: 100%;
+  clear: both;
+  height: 1px;
+}
+.tab-container {
+  margin-bottom: 30px;
+}
+.tab-container > ul > li {
+  display: none;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.tab-container > ul > li.active {
+  display: block;
+  animation-name: fadeInUp;
+  animation-duration: .4s;
+}
+a {
+  color: #7d8592;
+  text-decoration: none;
+  -webkit-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+a:hover {
+  color: #171725;
+}
+p {
+  margin: 0 0 10px;
+  line-height: 26px;
+  text-align: justify;
+  color: #7d8592;
+}
+h1 {
+  font-size: 22px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 17px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 15px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 15px;
+  color: #171725;
+  line-height: 1.7;
+  font-weight: 700;
+  font-family: iranyekan;
+  -webkit-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+.sec-title {
+  font-size: 19px;
+}
+button,
+input,
+select,
+textarea {
+  font-family: iranyekan;
+}
+ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+img {
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 100;
+  src: url("fonts/Yekan-Bakh-FaNum-01-Hairline.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-01-Hairline.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-01-Hairline.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-01-Hairline.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-01-Hairline.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 200;
+  src: url("fonts/Yekan-Bakh-FaNum-02-Thin.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-02-Thin.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-02-Thin.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-02-Thin.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-02-Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 300;
+  src: url("fonts/Yekan-Bakh-FaNum-03-Light.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-03-Light.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-03-Light.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-03-Light.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-03-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/Yekan-Bakh-FaNum-04 Regular.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-04 Regular.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-04 Regular.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-04 Regular.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-04 Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 500;
+  src: url("fonts/Yekan-Bakh-FaNum-05-Medium.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-05-Medium.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-05-Medium.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-05-Medium.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-05-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/Yekan-Bakh-FaNum-06-Bold.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-06-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-06-Bold.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-06-Bold.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-06-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 800;
+  src: url("fonts/YEKANBAKHENHEAVY.eot");
+  src: url("fonts/YEKANBAKHENHEAVY.eot?#iefix") format("embedded-opentype"), url("fonts/YEKANBAKHENHEAVY.woff") format("woff"), url("fonts/YEKANBAKHENHEAVY.woff2") format("woff2"), url("fonts/YEKANBAKHENHEAVY.ttf") format("truetype");
+}
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 900;
+  src: url("fonts/Yekan-Bakh-FaNum-08-Fat.eot");
+  src: url("fonts/Yekan-Bakh-FaNum-08-Fat.eot?#iefix") format("embedded-opentype"), url("fonts/Yekan-Bakh-FaNum-08-Fat.woff") format("woff"), url("fonts/Yekan-Bakh-FaNum-08-Fat.woff2") format("woff2"), url("fonts/Yekan-Bakh-FaNum-08-Fat.ttf") format("truetype");
+}
+#main {
+  width: 1000px;
+  margin: 0 auto;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+table td,
+table th {
+  border: 1px solid #000;
+  padding: 8px 10px;
+  color: #000;
+  font-weight: normal;
+}
+table td {
+  vertical-align: top;
+}
+table td .logo {
+  display: inline-block;
+  width: 80px;
+  vertical-align: middle;
+}
+table td u {
+  padding: 0 10px;
+  font-weight: bold;
+}
+table td .space {
+  display: inline-block;
+  padding: 0 30px;
+}
+table table {
+  table-layout: unset;
+}
+table table td {
+  border: none;
+  padding: 3px 0;
+}
+table table td:last-child {
+  width: 0;
+}
+table table td.img {
+  width: 60px;
+  padding-left: 10px;
+}
+table table td.inf {
+  width: auto;
+}
+table table td.inf td {
+  width: auto;
+}
+table table.auto {
+  width: auto;
+}
+table table.auto td {
+  padding: 7px 0;
+}
+
+
