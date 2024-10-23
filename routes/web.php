@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FormController;
@@ -43,5 +44,11 @@ Route::prefix('user/')->name('user.')->middleware('admin')->group(function () {
     Route::post('import', [UserController::class, 'import'])->name('import')->middleware('admin');
     Route::get('fish/{user}', [UserController::class, 'fish'])->name('fish')->withoutMiddleware('admin')->middleware('auth');
 
+});
+
+
+Route::prefix('settings')->name('settings.')->middleware('admin')->group(function () {
+    Route::get('index', [SettingController::class, 'index'])->name('index');
+    Route::post('save', [SettingController::class, 'save'])->name('save');
 });
 

@@ -10,10 +10,22 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total_benefit',
-        'total_deduction',
-        'total_installment',
-        'net_paid'
+        'key',
+        'value'
+    ];
+
+
+    CONST TOTAL_BENEFIT     = 'total_benefit';
+    CONST TOTAL_DEDUCTION   = 'total_deduction';
+    CONST TOTAL_INSTALLMENT = 'total_installment';
+    CONST NET_PAID          = 'net_paid';
+
+
+    const SETTING_KEYS = [
+        self::TOTAL_BENEFIT,
+        self::TOTAL_DEDUCTION,
+        self::TOTAL_INSTALLMENT,
+        self::NET_PAID
     ];
 
 

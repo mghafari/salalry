@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_benefit')->nullable(); // مزایا
-            $table->integer('total_deduction')->nullable(); // کسورات
-            $table->integer('total_installment')->nullable(); // اقساط
-            $table->integer('net_paid')->nullable(); // خالص پرداختی
+            $table->string('key');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
