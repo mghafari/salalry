@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('payslip_head_settings', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

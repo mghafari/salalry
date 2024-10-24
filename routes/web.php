@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\PayslipDetailSettingController;
+use App\Http\Controllers\Admin\PayslipHEADSettingController;
 use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,17 @@ Route::prefix('user/')->name('user.')->middleware('admin')->group(function () {
 Route::prefix('settings')->name('settings.')->middleware('admin')->group(function () {
     Route::get('index', [SettingController::class, 'index'])->name('index');
     Route::post('save', [SettingController::class, 'save'])->name('save');
+
+    Route::prefix('payslip')->name('payslip.')->group(function () {
+        Route::get('/index', [PayslipHeadSettingController::class, 'index'])->name('index');
+        Route::post('/store', [PayslipHeadSettingController::class, 'store'])->name('store');
+        Route::get('/edit/{payslipHeadSetting}', [PayslipHeadSettingController::class, 'edit'])->name('edit');
+        Route::post('/update/{payslipHeadSetting}', [PayslipHeadSettingController::class, 'update'])->name('update');
+
+
+        Route::prefix('{payslipHeadSetting}/detail')->name('detail.')->group(function () {
+            Route::get('index', [PayslipDetailSettingController::class, 'index'])->name('index');
+        });
+    });
 });
 
