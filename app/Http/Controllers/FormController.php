@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\SalaryImport;
+use App\Imports\SalaryImportWithSetting;
 use App\Models\Form;
+use App\Models\PayslipHeadSetting;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use function PHPUnit\Framework\isEmpty;
@@ -65,8 +68,21 @@ class FormController extends Controller
      */
     public function import(Request $request)
     {
+        $payslipHeadSetting = PayslipHeadSetting::where('status', PayslipHeadSetting::STATUS_ACTIVE)->first();
 
-        Excel::import(new SalaryImport($request->year, $request->month), $request->file('file')->store('temp'));
+        if (!$payslipHeadSetting)
+        {
+            return back()->with('error', 'لطفا یک تنطیمات دیفالت برای فیش حقوقی وارد کنید');
+        }
+
+        $nationalCodePlace = Setting::where('key', 'NATIONAL_CODE_PLACE')->first();
+
+        if (!$nationalCodePlace || !isset($nationalCodePlace->value))
+        {
+            return back()->with('error', 'لطفا مکان کدملی را در قسمت تنظیمات سیستم وارد کنید.');
+        }
+
+        Excel::import(new SalaryImportWithSetting($request->year, $request->month, $payslipHeadSetting, $nationalCodePlace->value), $request->file('file')->store('temp'));
         toastr()->success('اطلاعات با موفقیت وارد گردید!');
         return back();
         //
