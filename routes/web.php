@@ -61,6 +61,9 @@ Route::prefix('settings')->name('settings.')->middleware('admin')->group(functio
 
         Route::prefix('{payslipHeadSetting}/detail')->name('detail.')->group(function () {
             Route::get('index', [PayslipDetailSettingController::class, 'index'])->name('index');
+            Route::post('store', [PayslipDetailSettingController::class, 'store'])->name('store');
+            Route::get('/edit/{payslipSetting}', [PayslipDetailSettingController::class, 'edit'])->name('edit');
+            Route::post('/update/{payslipSetting}', [PayslipDetailSettingController::class, 'update'])->name('update');
         });
     });
 });

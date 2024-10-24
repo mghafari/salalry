@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payslip_detail_settings', function (Blueprint $table) {
+        Schema::create('payslip_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payslip_head')->constrained('payslip_head_settings');
             $table->integer('index');
             $table->string('title');
             $table->integer('category');
             $table->boolean('visible_zero')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

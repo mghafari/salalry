@@ -65,7 +65,7 @@
                         </thead>
                         <tbody>
                             @foreach ($payslip_heads as $payslip_head)
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ $payslip_head->id }}</td>
                                     <td>{{ $payslip_head->title }}</td>
                                     <td>{{ PayslipHeadSetting::TITLE_STATUS[$payslip_head->status] }}</td>

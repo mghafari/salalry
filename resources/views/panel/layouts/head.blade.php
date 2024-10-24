@@ -10,7 +10,7 @@
 
 
     <link href="/panel/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="/panel/css/style.css" rel="stylesheet">
+    <link href="/panel/css/style.css?v=01" rel="stylesheet">
 
 
 
