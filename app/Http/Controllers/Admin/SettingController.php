@@ -24,6 +24,7 @@ class SettingController extends Controller
                 ], [
                     'value' => $value ?? null
                 ]);
+
             }
 
         }

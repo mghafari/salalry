@@ -48,7 +48,7 @@
                                     <td></td>
                                     <td>
                                         <select name="index" id="">
-                                            @for ($i = 1; $i <= 100; $i++)
+                                            @for ($i = 0; $i <= 100; $i++)
                                                 <option @if(isset($payslipSetting) && $payslipSetting->index == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
                                             @endfor
                                         </select>
