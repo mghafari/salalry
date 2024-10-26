@@ -17,14 +17,14 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
     public $year;
     public $month;
     public $payslipHeadSetting;
-    public $nationalCodePlace;
+    public $settings;
 
-    public function __construct( $year , $month, $payslipHeadSetting, $nationalCodePlace)
+    public function __construct( $year , $month, $payslipHeadSetting, $settings)
     {
         $this->year= $year;
         $this->month= $month;
         $this->payslipHeadSetting= $payslipHeadSetting;
-        $this->nationalCodePlace= $nationalCodePlace;
+        $this->settings= $settings;
     }
 
 
@@ -32,23 +32,21 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
 
-            if (!isset($row[$this->nationalCodePlace]))
+            $row = $row->toArray();
+            $row = array_values($row);
+
+            if (!isset($row[$this->settings['nationalCodePlace']]))
             {
                 continue;
             }
 
-            $personalCode = Setting::where('key', 'PERSONAL_CODE_PLACE')->first();
-            $mobile       = Setting::where('key', 'MOBILE_PLACE')->first();
-            $firstName    = Setting::where('key', 'FIRST_NAME_PLACE')->first();
-            $lastName     = Setting::where('key', 'LAST_NAME_PLACE')->first();
-
             $user = User::updateOrCreate([
-                'national_code' => $row[$this->nationalCodePlace]
+                'national_code' => $row[$this->settings['nationalCodePlace']]
             ],[
-                'name'          => $firstName ? $row[$firstName] : null,
-                'family'        => $lastName ? $row[$lastName] : null,
-                'personal_code' => $personalCode ? $row[$personalCode] : null,
-                'mobile'        => $mobile ? $row[$mobile] : null
+                'name'          => $row[$this->settings['firstNamePlace']],
+                'family'        => $row[$this->settings['lastNamePlace']],
+                'personal_code' => $row[$this->settings['personalCodePlace']],
+                'mobile'        => $row[$this->settings['mobilePlace']]
             ]);
 
             if (!$user)
@@ -57,11 +55,11 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
             }
 
             $exclusions = [
-                $this->nationalCodePlace,
-                $firstName,
-                $lastName,
-                $personalCode,
-                $mobile
+                $this->settings['firstNamePlace'],
+                $this->settings['lastNamePlace'],
+                $this->settings['personalCodePlace'],
+                $this->settings['mobilePlace'],
+                $this->settings['nationalCodePlace']
             ];
 
             $colIndex = 0;
@@ -73,11 +71,12 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
                     continue;
                 }
 
-                PayslipImport::create([
+                PayslipImport::updateOrcreate([
                     'payslip_head_setting_id' => $this->payslipHeadSetting->id,
+                    'user_id' => $user->id,
                     'index' => $colIndex,
+                ], [
                     'value' => $singleRow,
-                    'user_id' => $user->id
                 ]);
 
                 $colIndex++; 

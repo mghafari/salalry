@@ -69,7 +69,7 @@
                                 <div class="form-group col-md-6 col-12">
                                     <label>شماره تماس</label>
                                     <select name="mobile_place" class="form-control" id="">
-                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        <option value="" selected>انتخاب کنید</option>
                                         @for ($i = 0; $i <= 100; $i++)
                                             <option value="{{ $i }}" @if(isset($settings['MOBILE_PLACE']) && $settings['MOBILE_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
                                         @endfor
