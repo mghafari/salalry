@@ -20,10 +20,8 @@ class Setting extends Model
     CONST TOTAL_INSTALLMENT   = 'total_installment';
     CONST NET_PAID            = 'net_paid';
     CONST NATIONAL_CODE_PLACE = 'national_code_place';
-    CONST PERSONAL_CODE_PLACE = 'personal_code_place';
-    CONST FIRST_NAME_PLACE    = 'first_name_place';
-    CONST LAST_NAME_PLACE     = 'last_name_place';
-    CONST MOBILE_PLACE        = 'mobile_place';
+    CONST PASSWORD_PLACE      = 'password_place';
+    CONST LOGIN_USER          = 'login_user';
 
 
     const SETTING_KEYS = [
@@ -32,10 +30,8 @@ class Setting extends Model
         self::TOTAL_INSTALLMENT,
         self::NET_PAID,
         self::NATIONAL_CODE_PLACE,
-        self::PERSONAL_CODE_PLACE,
-        self::FIRST_NAME_PLACE,
-        self::LAST_NAME_PLACE,
-        self::MOBILE_PLACE,
+        self::LOGIN_USER,
+        self::PASSWORD_PLACE,
     ];
 
 

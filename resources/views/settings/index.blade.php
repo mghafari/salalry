@@ -28,17 +28,20 @@
                         <form method="post" action="{{route('settings.save')}}" enctype="multipart/form-data">
                             @csrf
 
-                            <p>اطلاعات کابر</p>
+                            <p>اطلاعات ورود کابر</p>
                             <div class="row">
                                 <div class="form-group col-md-6 col-12">
-                                    <label>کدپرسنلی</label>
-                                    <select name="personal_code_place" class="form-control" id="">
-                                        <option value="" disabled selected>انتخاب کنید</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['PERSONAL_CODE_PLACE']) && $settings['PERSONAL_CODE_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
+                                    <label>نحوه ورود کاربر</label>
+                                    <select name="login_user" class="form-control" id="">
+                                        <option value="otp" @if($settings['LOGIN_USER'] == 'otp') selected @endif selected>ورود با کد تایید</option>
+                                        <option value="pass" @if($settings['LOGIN_USER'] == 'pass') selected @endif>ورود با پسورد</option>
+
                                     </select>
                                 </div>
+                            </div>
+
+                            <p>اطلاعات کابر</p>
+                            <div class="row">
                                 <div class="form-group col-md-6 col-12">
                                     <label>کدملی</label>
                                     <select name="national_code_place" class="form-control" id="">
@@ -49,29 +52,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
-                                    <label>نام</label>
-                                    <select name="first_name_place" class="form-control" id="">
+                                    <label>پسورد</label>
+                                    <select name="password_place" class="form-control" id="">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['FIRST_NAME_PLACE']) && $settings['FIRST_NAME_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>نام خانوادگی</label>
-                                    <select name="last_name_place" class="form-control" id="">
-                                        <option value="" disabled selected>انتخاب کنید</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['LAST_NAME_PLACE']) && $settings['LAST_NAME_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>شماره تماس</label>
-                                    <select name="mobile_place" class="form-control" id="">
-                                        <option value="" selected>انتخاب کنید</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['MOBILE_PLACE']) && $settings['MOBILE_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
+                                            <option value="{{ $i }}" @if(isset($settings['PASSWORD_PLACE']) && $settings['PASSWORD_PLACE'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
                                         @endfor
                                     </select>
                                 </div>

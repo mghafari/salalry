@@ -76,39 +76,14 @@ class FormController extends Controller
         }
 
         $nationalCodePlace = Setting::where('key', 'NATIONAL_CODE_PLACE')->first();
-        $personalCodePlace = Setting::where('key', 'PERSONAL_CODE_PLACE')->first();
-        $mobilePlace       = Setting::where('key', 'MOBILE_PLACE')->first();
-        $firstNamePlace    = Setting::where('key', 'FIRST_NAME_PLACE')->first();
-        $lastNamePlace     = Setting::where('key', 'LAST_NAME_PLACE')->first();
 
         if (!$nationalCodePlace || !isset($nationalCodePlace->value))
         {
             return back()->with('error', 'لطفا مکان کدملی را در قسمت تنظیمات سیستم وارد کنید.');
         }
-        if (!$personalCodePlace || !isset($personalCodePlace->value))
-        {
-            return back()->with('error', 'لطفا مکان کدپستی را در قسمت تنظیمات سیستم وارد کنید.');
-        }
-        if (!$mobilePlace || !isset($mobilePlace->value))
-        {
-            return back()->with('error', 'لطفا مکان شماره تماس را در قسمت تنظیمات سیستم وارد کنید.');
-        }
-        if (!$firstNamePlace || !isset($firstNamePlace->value))
-        {
-            return back()->with('error', 'لطفا مکان نام را در قسمت تنظیمات سیستم وارد کنید.');
-        }
-        if (!$lastNamePlace || !isset($lastNamePlace->value))
-        {
-            return back()->with('error', 'لطفا مکان نام‌خانوادگی را در قسمت تنظیمات سیستم وارد کنید.');
-        }
 
         $settings = [
             'nationalCodePlace' => $nationalCodePlace->value,
-            'personalCodePlace' => $personalCodePlace->value,
-            'mobilePlace'       => $mobilePlace->value,
-            'firstNamePlace'    => $firstNamePlace->value,
-            'lastNamePlace'     => $lastNamePlace->value,
-
         ];
 
         Excel::import(new SalaryImportWithSetting($request->year, $request->month, $payslipHeadSetting, $settings), $request->file('file')->store('temp'));

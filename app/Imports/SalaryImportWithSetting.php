@@ -40,14 +40,7 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $user = User::updateOrCreate([
-                'national_code' => $row[$this->settings['nationalCodePlace']]
-            ],[
-                'name'          => $row[$this->settings['firstNamePlace']],
-                'family'        => $row[$this->settings['lastNamePlace']],
-                'personal_code' => $row[$this->settings['personalCodePlace']],
-                'mobile'        => $row[$this->settings['mobilePlace']]
-            ]);
+            $user = User::where('national_code', $row[$this->settings['nationalCodePlace']])->first();
 
             if (!$user)
             {
@@ -55,10 +48,6 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
             }
 
             $exclusions = [
-                $this->settings['firstNamePlace'],
-                $this->settings['lastNamePlace'],
-                $this->settings['personalCodePlace'],
-                $this->settings['mobilePlace'],
                 $this->settings['nationalCodePlace']
             ];
 
