@@ -76,6 +76,7 @@ class FormController extends Controller
         }
 
         $nationalCodePlace = Setting::where('key', 'NATIONAL_CODE_PLACE')->first();
+        $passwordPlace = Setting::where('key', 'PASSWORD_PLACE')->first();
 
         if (!$nationalCodePlace || !isset($nationalCodePlace->value))
         {
@@ -84,6 +85,7 @@ class FormController extends Controller
 
         $settings = [
             'nationalCodePlace' => $nationalCodePlace->value,
+            'passwordPlace' => $passwordPlace->value,
         ];
 
         Excel::import(new SalaryImportWithSetting($request->year, $request->month, $payslipHeadSetting, $settings), $request->file('file')->store('temp'));

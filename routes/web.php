@@ -23,6 +23,7 @@ Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
 Route::post('login/sms/send', [LoginController::class, 'sendSms'])->name('login.send');
 Route::get('login/sms', [LoginController::class, 'smsForm'])->name('login.smsForm');
 Route::post('/login', [LoginController::class, 'login'])->name('logincreate');
+Route::post('/login-password', [LoginController::class, 'loginPassword'])->name('login.password');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 
