@@ -33,8 +33,8 @@
                                 <div class="form-group col-md-6 col-12">
                                     <label>نحوه ورود کاربر</label>
                                     <select name="login_user" class="form-control" id="">
-                                        <option value="otp" @if($settings['LOGIN_USER'] == 'otp') selected @endif selected>ورود با کد تایید</option>
-                                        <option value="pass" @if($settings['LOGIN_USER'] == 'pass') selected @endif>ورود با پسورد</option>
+                                        <option value="otp" @if(isset($settings['LOGIN_USER']) && $settings['LOGIN_USER'] == 'otp') selected @endif selected>ورود با کد تایید</option>
+                                        <option value="pass" @if(isset($settings['LOGIN_USER']) && $settings['LOGIN_USER'] == 'pass') selected @endif>ورود با پسورد</option>
 
                                     </select>
                                 </div>
