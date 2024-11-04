@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
+                GuaranteeFormStatusSeeder::class,
                 UserSeeder::class
             ]
         );
