@@ -44,4 +44,18 @@ class User extends Authenticatable
     {
         return $this->name. ' '. $this->family;
     }
+
+
+    CONST ROLE_USER  = 'user';
+    CONST ROLE_ADMIN = 'admin';
+    CONST ROLE_CFO   = 'cfo';
+    CONST ROLE_CEO   = 'ceo';
+
+
+    CONST ROLE_TITLE = [
+        self::ROLE_USER  => 'یوزر',
+        self::ROLE_ADMIN => 'ادمین',
+        self::ROLE_CFO   => 'مدیرمالی',
+        self::ROLE_CEO   => 'مدیرعامل',
+    ];
 }

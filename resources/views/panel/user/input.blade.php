@@ -1,3 +1,6 @@
+@php
+    use App\Models\User;
+@endphp
 @extends('panel.main')
 @section('body')
     <div class="row page-titles mx-0">
@@ -71,6 +74,14 @@
                                     <input type="text" name="account_no"
                                            class="form-control" placeholder="">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label>نقش </label>
+                                    <select class="form-control" name="role" id="role">
+                                        @foreach(User::ROLE_TITLE as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
 
                             </div>
@@ -130,6 +141,7 @@
                                     <th>کد ملی</th>
 
                                     <th>موبایل</th>
+                                    <th>نقش</th>
                                     <th>مشاهده</th>
 
 
@@ -149,6 +161,7 @@
                                         <td>{{$user->national_code}}</td>
 
                                         <td>{{$user->mobile}}</td>
+                                        <td>{{ User::ROLE_TITLE[$user->role] }}</td>
 
                                         <td>
                                             <div class="d-flex">
