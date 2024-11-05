@@ -48,7 +48,7 @@
 
                     </ul>
                 </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="true">
+                <li class="@if( in_array(request()->route()->getName(),['accounting.guaranteeForm.index', 'accounting.guaranteeForm.create', 'accounting.guaranteeForm.submitCode']) ) mm-active @endif"><a class="has-arrow ai-icon " href="javascript:void()" aria-expanded="true">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"></rect>
@@ -62,10 +62,11 @@
                             <rect fill="currentColor" opacity="0.3" x="10" y="17" width="7" height="2" rx="1"></rect>
                         </g>
                     </svg>
-                    درخواست‌های حسابداری
+                    <span class="nav-text">درخواست‌های حسابداری</span>
+                    
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="{{route('accounting.guaranteeForm.index')}}">درخواست ضمانت حسابداری</a></li>
+                        <li><a class="@if( in_array(request()->route()->getName(),['accounting.guaranteeForm.index', 'accounting.guaranteeForm.create', 'accounting.guaranteeForm.submitCode']) ) mm-active @endif" href="{{route('accounting.guaranteeForm.index')}}">درخواست ضمانت حسابداری</a></li>
 
                     </ul>
                 </li>

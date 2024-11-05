@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('guarantee_forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('price');
+            $table->integer('price');
             $table->string('bank_or_institution');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('nationale_id')->nullable();
-            $table->foreignId('status_id')->constrained('guarantee_form_statuses');
-            $table->foreignId('active_status_id')->constrained('guarantee_form_statuses');
+            $table->integer('registration_owner');
+            $table->string('other_first_name')->nullable();
+            $table->string('other_last_name')->nullable();
+            $table->string('other_national_id')->nullable();
+            $table->integer('status');
+            $table->boolean('active_status')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

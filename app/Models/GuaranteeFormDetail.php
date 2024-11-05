@@ -12,6 +12,7 @@ class GuaranteeFormDetail extends Model
     protected $fillable = [
         'gurantee_form_id',
         'editor_id',
+        'editor_name',
         'comment',
         'old_status',
         'new_status'

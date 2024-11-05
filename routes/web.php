@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\GuaranteeFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,24 @@ Route::get('/fish/print/{form}' , [FormController::class, 'print'])->name('fish.
 Route::get('/fish/show/{form}' , [FormController::class, 'show'])->name('fish.show')->middleware('auth');
 Route::get('/' , [FormController::class, 'latestForm'])->name('fish.first')->middleware('auth');
 Route::delete('form/destroy/{form}' , [FormController::class, 'destroy'])->name('form.destroy')->middleware('auth');
+
+
+Route::middleware('auth')->prefix('accounting')->name('accounting.')->group(function() {
+    Route::prefix('guarantee-form')->name('guaranteeForm.')->group(function () {
+        Route::get('/', [GuaranteeFormController::class, 'index'])->name('index');
+        Route::get('/create', [GuaranteeFormController::class, 'create'])->name('create');
+        Route::post('/store', [GuaranteeFormController::class, 'store'])->name('store');
+        Route::delete('/delete/{guaranteeForm}', [GuaranteeFormController::class, 'delete'])->name('delete');
+
+
+        Route::get('/submit-code/{guaranteeForm}', [GuaranteeFormController::class, 'submitCode'])->name('submitCode');
+        Route::post('/send-sms-for-guarantee-form/{guaranteeForm}', [GuaranteeFormController::class, 'sendSmsForGuaranteeForm'])->name('sendSmsForGuaranteeForm');
+        Route::post('/post-submit-code/{guaranteeForm}', [GuaranteeFormController::class, 'postSubmitCode'])->name('postSubmitCode');
+
+        Route::get('/details/{guaranteeForm}', [GuaranteeFormController::class, 'details'])->name('details');
+    });
+});
+
 
 Route::prefix('user/')->name('user.')->middleware('admin')->group(function () {
     Route::get('/create', [UserController::class, 'create'])->name('create');

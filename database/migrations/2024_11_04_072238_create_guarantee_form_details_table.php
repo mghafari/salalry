@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gurantee_form_id')->constrained('guarantee_forms');
             $table->foreignId('editor_id')->constrained('users');
-            $table->string('comment');
-            $table->foreignId('old_status')->constrained('guarantee_form_statuses')->nullable();
-            $table->foreignId('new_status')->constrained('guarantee_form_statuses');
+            $table->string('editor_name')->nullable();
+            $table->string('comment')->nullable();
+            $table->integer('old_status')->nullable();
+            $table->integer('new_status');
             $table->timestamps();
         });
     }
