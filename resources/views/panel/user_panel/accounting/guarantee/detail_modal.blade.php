@@ -8,8 +8,8 @@
             <button type="button" class="close" aria-hidden="true" data-bs-dismiss="modal"><span>&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <table id="example2" class="display" style="width:100%">
+        <div class="modal-body table-responsive">
+            <table class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -17,21 +17,21 @@
                         <th>وضعیت جدید</th>
                         <th>علت رد یا تایید</th>
                         <th>ثبت شده توسط</th>
+                        <th>تاریخ ثبت</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($guaranteeFormDetails as $guaranteeFormDetail)
-                        <tr>
+                        <tr style="height: 30px">
                             <td>{{ $guaranteeFormDetail->id }}</td>
-                            <td>{{ $guaranteeFormDetail->old_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->old_status] : '' }}</td>
-                            <td>{{ $guaranteeFormDetail->new_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->new_status] : '' }}</td>
+                            <td><span class="badge {{ $guaranteeFormDetail->old_status ? GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->old_status] : '' }}">{{ $guaranteeFormDetail->old_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->old_status] : '' }}</span></td>
+                            <td><span class="badge {{ GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->new_status] }}">{{ $guaranteeFormDetail->new_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->new_status] : '' }}</span></td>
                             <td>{{ $guaranteeFormDetail->comment ?? '' }}</td>
                             <td>{{ $guaranteeFormDetail->editor_name }}</td>
-    
+                            <td>{{verta($guaranteeFormDetail->created_at)->formatJalaliDate()}}</td>
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
         </div>
         <div class="modal-footer">

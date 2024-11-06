@@ -55,10 +55,10 @@ class GuaranteeForm extends Model
         self::STATUS_APPROVED_BY_USER  => 'تایید توسط کاربر',
         self::STATUS_APPROVED_BY_ADMIN => 'تایید توسط ادمین',
         self::STATUS_REJECT_BY_ADMIN   => 'رد توسط ادمین',
-        self::STATUS_APPROVED_BY_CFO   => 'رد توسط مدیرمالی',
-        self::STATUS_REJECT_BY_CFO     => 'تایید توسط مدیرمالی',
-        self::STATUS_APPROVED_BY_CEO   => 'رد توسط مدیرعامل',
-        self::STATUS_REJECT_BY_CEO     => 'تایید توسط مدیرعامل',
+        self::STATUS_APPROVED_BY_CFO   => 'تایید توسط مدیرمالی',
+        self::STATUS_REJECT_BY_CFO     => 'رد توسط مدیرمالی',
+        self::STATUS_APPROVED_BY_CEO   => 'تایید توسط مدیرعامل',
+        self::STATUS_REJECT_BY_CEO     => 'رد توسط مدیرعامل',
     ];
 
     
@@ -68,10 +68,10 @@ class GuaranteeForm extends Model
         self::STATUS_APPROVED_BY_USER  => 'badge-primary',
         self::STATUS_APPROVED_BY_ADMIN => 'badge-primary',
         self::STATUS_REJECT_BY_ADMIN   => 'badge-danger',
-        self::STATUS_APPROVED_BY_CFO   => 'badge-danger',
-        self::STATUS_REJECT_BY_CFO     => 'badge-primary',
-        self::STATUS_APPROVED_BY_CEO   => 'badge-danger',
-        self::STATUS_REJECT_BY_CEO     => 'badge-success',
+        self::STATUS_APPROVED_BY_CFO   => 'badge-primary',
+        self::STATUS_REJECT_BY_CFO     => 'badge-danger',
+        self::STATUS_APPROVED_BY_CEO   => 'badge-success',
+        self::STATUS_REJECT_BY_CEO     => 'badge-danger',
     ];
 
 

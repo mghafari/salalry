@@ -140,6 +140,10 @@ class FormController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             return redirect(route('admin.fish.show'));
+        } elseif(Auth::user()->role == 'cfo') {
+            return redirect(route('guaranteeFormList.index'));
+        } elseif(Auth::user()->role == 'ceo') {
+            return redirect(route('guaranteeFormList.index'));
         } else {
             return redirect(route('user.fish.show'));
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\GuaranteeFormListController;
 use App\Http\Controllers\Admin\PayslipDetailSettingController;
 use App\Http\Controllers\Admin\PayslipHEADSettingController;
 use App\Http\Controllers\Admin\SettingController;
@@ -86,5 +87,13 @@ Route::prefix('settings')->name('settings.')->middleware('admin')->group(functio
             Route::post('/update/{payslipSetting}', [PayslipDetailSettingController::class, 'update'])->name('update');
         });
     });
+});
+
+
+Route::prefix('guarantee-form-list')->name('guaranteeFormList.')->middleware('checkCeoAndCfoRole')->group(function () {
+    Route::get('/', [GuaranteeFormListController::class, 'index'])->name('index');
+    Route::get('/set-status/{guaranteeForm}', [GuaranteeFormListController::class, 'setStatus'])->name('setStatus');
+    Route::post('/confirm/{guaranteeForm}', [GuaranteeFormListController::class, 'confirm'])->name('confirm');
+    Route::post('/reject/{guaranteeForm}', [GuaranteeFormListController::class, 'reject'])->name('reject');
 });
 
