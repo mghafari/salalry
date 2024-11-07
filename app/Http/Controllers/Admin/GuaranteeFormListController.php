@@ -17,17 +17,14 @@ class GuaranteeFormListController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role == 'ceo')
+        if ($user->role == 'ceo' || $user->role == 'admin')
         {
-            $status = GuaranteeForm::STATUS_APPROVED_BY_CFO;
-        } else if ($user->role == 'admin')
+            $status = [GuaranteeForm::STATUS_APPROVED_BY_CFO];
+        } else if ($user->role == 'cfo' || $user->role == 'admin') 
         {
-            $status = GuaranteeForm::STATUS_APPROVED_BY_USER;
-        } else if ($user->role == 'cfo') 
-        {
-            $status = GuaranteeForm::STATUS_APPROVED_BY_ADMIN;
+            $status = [GuaranteeForm::STATUS_APPROVED_BY_ADMIN];
         }
-        $guaranteeForms = GuaranteeForm::where('status', $status)->paginate(30);
+        $guaranteeForms = GuaranteeForm::whereIn('status', $status)->paginate(30);
 
 
         return view('panel.guarantee_form_list.index', compact('guaranteeForms'));
@@ -88,7 +85,8 @@ class GuaranteeFormListController extends Controller
                 $user = Auth::user();
     
                 $guaranteeForm->update([
-                    'status' => GuaranteeForm::STATUS_APPROVED_BY_CEO
+                    'status'        => GuaranteeForm::STATUS_APPROVED_BY_CEO,
+                    'active_status' => true
                 ]);
     
                 GuaranteeFormDetail::create([

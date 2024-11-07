@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminGuaranteeFormListController;
 use App\Http\Controllers\Admin\GuaranteeFormListController;
 use App\Http\Controllers\Admin\PayslipDetailSettingController;
 use App\Http\Controllers\Admin\PayslipHEADSettingController;
@@ -95,5 +96,10 @@ Route::prefix('guarantee-form-list')->name('guaranteeFormList.')->middleware('ch
     Route::get('/set-status/{guaranteeForm}', [GuaranteeFormListController::class, 'setStatus'])->name('setStatus');
     Route::post('/confirm/{guaranteeForm}', [GuaranteeFormListController::class, 'confirm'])->name('confirm');
     Route::post('/reject/{guaranteeForm}', [GuaranteeFormListController::class, 'reject'])->name('reject');
+});
+
+Route::prefix('admin-guarantee-form-list')->name('adminGuaranteeFormList.')->middleware('admin')->group(function () {
+    Route::get('/', [AdminGuaranteeFormListController::class, 'index'])->name('index');
+    Route::get('/set-status-draft/{guaranteeForm}', [AdminGuaranteeFormListController::class, 'setStatusDraft'])->name('setStatusDraft');
 });
 

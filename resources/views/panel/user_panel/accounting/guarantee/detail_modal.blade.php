@@ -24,8 +24,8 @@
                     @foreach ($guaranteeFormDetails as $guaranteeFormDetail)
                         <tr style="height: 30px">
                             <td>{{ $guaranteeFormDetail->id }}</td>
-                            <td><span class="badge {{ $guaranteeFormDetail->old_status ? GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->old_status] : '' }}">{{ $guaranteeFormDetail->old_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->old_status] : '' }}</span></td>
-                            <td><span class="badge {{ GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->new_status] }}">{{ $guaranteeFormDetail->new_status ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->new_status] : '' }}</span></td>
+                            <td><span class="badge {{ $guaranteeFormDetail->old_status ? GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->old_status] : '' }}">{{ isset($guaranteeFormDetail->old_status) ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->old_status] : '' }}</span></td>
+                            <td><span class="badge {{ GuaranteeForm::STATUS_COLOR[$guaranteeFormDetail->new_status] }}">{{ isset($guaranteeFormDetail->new_status) ? guaranteeForm::STATUS_TITLE[$guaranteeFormDetail->new_status] : '' }}</span></td>
                             <td>{{ $guaranteeFormDetail->comment ?? '' }}</td>
                             <td>{{ $guaranteeFormDetail->editor_name }}</td>
                             <td>{{verta($guaranteeFormDetail->created_at)->formatJalaliDate()}}</td>

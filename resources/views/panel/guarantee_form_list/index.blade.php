@@ -31,6 +31,7 @@
                                 <tr>
                                     <th>ثبت درخواست برای</th>
                                     <th>کدملی درخواست کننده</th>
+                                    <th>قیمت (ریال)</th>
                                     <th>ثبت شده توسط</th>
                                     <th>عملیات</th>
                                 </tr>
@@ -40,8 +41,9 @@
                                     <tr>
                                         <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . ' ' . $guaranteeForm->other_last_name) : $guaranteeForm->user->name() }}</td>
                                         <td>{{ $guaranteeForm->other_national_id ? fa_num($guaranteeForm->other_national_id) : fa_num($guaranteeForm->user->national_code) }}</td>
+                                        <td>{{ fa_num($guaranteeForm->price) }}</td>
                                         <td>{{ $guaranteeForm->user->name() }}</td>
-                                        <td class="d-flex justify-content-center align-items-center">
+                                        <td class="d-flex justify-content-end align-items-center">
                                             <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target=".bd-example-modal-lg">جزییات</button>
                                             @if ($guaranteeForm->status != GuaranteeForm::STATUS_APPROVED_BY_CEO)
                                             <a onclick="setStatus({{ $guaranteeForm->id }})" class="btn btn-info btn-xs mr-2 text-white">ثبت وضعیت</a>
