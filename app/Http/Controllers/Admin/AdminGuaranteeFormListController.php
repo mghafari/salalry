@@ -13,7 +13,10 @@ class AdminGuaranteeFormListController extends Controller
 {
     public function index()
     {
-        $guaranteeForms = GuaranteeForm::paginate(30);
+        $guaranteeForms = GuaranteeForm::orderByRaw(
+            'CASE WHEN status = ? THEN 1 ELSE 2 END', 
+            [GuaranteeForm::STATUS_APPROVED_BY_USER]
+        )->paginate(30);
 
         return view('panel.admin_guarantee_form_list.index', compact('guaranteeForms'));
     }

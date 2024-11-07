@@ -48,7 +48,7 @@
                                         <td>{{ $guaranteeForm->user->name() }}</td>
                                         <td class="d-flex justify-content-end align-items-center">
 
-                                            <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target="#basicModal">جزییات</button>
+                                            <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target=".bd-example-modal-lg">جزییات</button>
                                             @if($guaranteeForm->status == GuaranteeForm::STATUS_DRAFT)
                                                 <a href="{{ route('accounting.guaranteeForm.submitCode', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">ثبت کد تایید</a>
                                             @endif
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div id="basicModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" tabindex="-1" id="Modal">
 
     </div>
 
@@ -101,9 +101,8 @@
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
-                    $("#basicModal").html(data.html)
-                    $("#basicModal").removeAttr("aria-hidden");
-                    $("#basicModal").modal('show')
+                    $("#Modal").html(data.html)
+                    $("#Modal").modal('show')
                 },
                 error: function(reject) {
 
