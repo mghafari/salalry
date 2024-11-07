@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\Sms;
 use App\Models\GuaranteeFormDetail;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -52,6 +53,34 @@ class GuaranteeFormController extends Controller
                 'price'               => 'required',
             ]);
         }
+
+        $max_guarantee_form = $user->max_guarantee_form;
+
+        if (!isset($max_guarantee_form))
+        {
+            $setting = Setting::where('key', 'MAX_GUARANTEE_FORM')->first();
+            if ($setting)
+            {
+                $max_guarantee_form = $setting->value;
+            }
+            
+        }
+
+
+        if (isset($max_guarantee_form))
+        {
+            $guaranteeFormTotalPrice = GuaranteeForm::where('user_id', $user->id)->where('status', '!=', GuaranteeForm::STATUS_DEACTIVE)->sum('price');
+
+            $guaranteeFormTotalPrice = en_num($guaranteeFormTotalPrice);
+            $guaranteeFormTotalPrice = $guaranteeFormTotalPrice + en_num($request->price);
+            $max_guarantee_form = en_num($max_guarantee_form);
+
+            if ($max_guarantee_form < $guaranteeFormTotalPrice)
+            {
+                return back()->with('error', 'مبلغ درخواست مورد نظر از میزان تعریف شده برای شما بیشتر است.');
+            }
+        }
+        
 
 
         DB::transaction(function () use ($request, $user) {

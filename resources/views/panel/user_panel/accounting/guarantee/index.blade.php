@@ -32,6 +32,7 @@
                                 <tr>
                                     <th>ثبت درخواست برای</th>
                                     <th>کدملی درخواست کننده</th>
+                                    <th>قیمت (ریال)</th>
                                     <th>اخرین وضعیت</th>
                                     <th>ثبت شده توسط</th>
                                     <th>عملیات</th>
@@ -42,6 +43,7 @@
                                     <tr>
                                         <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . ' ' . $guaranteeForm->other_last_name) : $user->name() }}</td>
                                         <td>{{ $guaranteeForm->other_national_id ? fa_num($guaranteeForm->other_national_id) : fa_num($user->national_code) }}</td>
+                                        <td>{{ en_num($guaranteeForm->price) }}</td>
                                         <td><span class="badge {{ GuaranteeForm::STATUS_COLOR[$guaranteeForm->status] }}">{{ GuaranteeForm::STATUS_TITLE[$guaranteeForm->status] }}</span></td>
                                         <td>{{ $guaranteeForm->user->name() }}</td>
                                         <td class="d-flex justify-content-center align-items-center">
