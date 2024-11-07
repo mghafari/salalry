@@ -89,6 +89,10 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label>ماکزیمم مبلغ ضمانت حسابداری (ریال)</label>
+                                    <input class="form-control" type="text" name="max_guarantee_form" value="@if(isset($user->max_guarantee_form)) {{ $user->max_guarantee_form }} @endif">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label>وضعیت </label>
                                     <br>
                                     <input type="radio" name="status"

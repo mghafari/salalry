@@ -30,7 +30,8 @@ class UserController extends Controller
                 'national_code'=>'required |unique:users',
 
                 'personal_code'=>'required |unique:users',
-                'role' => 'required'
+                'role' => 'required',
+                'max_guarantee_form' => 'nullable'
             ]
         );
 
@@ -40,14 +41,15 @@ class UserController extends Controller
         }
         User::create(
             [
-                'name'          => $request->name,
-                'family'        => $request->family,
-                'mobile'        => $request->mobile,
-                'national_code' => $request->national_code,
-                'personal_code' => $request->personal_code,
-                'account_no'    => $request->account_no,
-                'ins_no'        => $request->ins_no,
-                'role'          => $request->role
+                'name'               => $request->name,
+                'family'             => $request->family,
+                'mobile'             => $request->mobile,
+                'national_code'      => $request->national_code,
+                'personal_code'      => $request->personal_code,
+                'account_no'         => $request->account_no,
+                'ins_no'             => $request->ins_no,
+                'role'               => $request->role,
+                'max_guarantee_form' => $request->max_guarantee_form ? en_num($request->max_guarantee_form) : null
 
             ]
         );
@@ -66,14 +68,15 @@ class UserController extends Controller
     {
         $user->update(
             [
-                'name'          => $request->name,
-                'family'        => $request->family,
-                'mobile'        => $request->mobile,
-                'national_code' => $request->national_code,
-                'account_no'    => $request->account_no,
-                'ins_no'        => $request->ins_no,
-                'status'        => $request->status,
-                'role'          => $request->role
+                'name'               => $request->name,
+                'family'             => $request->family,
+                'mobile'             => $request->mobile,
+                'national_code'      => $request->national_code,
+                'account_no'         => $request->account_no,
+                'ins_no'             => $request->ins_no,
+                'status'             => $request->status,
+                'role'               => $request->role,
+                'max_guarantee_form' => $request->max_guarantee_form ? en_num($request->max_guarantee_form) : null
 
             ]
         );
