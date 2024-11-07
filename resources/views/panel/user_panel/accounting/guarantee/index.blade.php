@@ -40,14 +40,13 @@
                                 <tbody>
                                 @foreach($guaranteeForms as $guaranteeForm)
                                     <tr>
-                                        <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . $guaranteeForm->other_last_name) : $user->name() }}</td>
+                                        <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . ' ' . $guaranteeForm->other_last_name) : $user->name() }}</td>
                                         <td>{{ $guaranteeForm->other_national_id ? fa_num($guaranteeForm->other_national_id) : fa_num($user->national_code) }}</td>
                                         <td><span class="badge {{ GuaranteeForm::STATUS_COLOR[$guaranteeForm->status] }}">{{ GuaranteeForm::STATUS_TITLE[$guaranteeForm->status] }}</span></td>
                                         <td>{{ $guaranteeForm->user->name() }}</td>
                                         <td class="d-flex justify-content-center align-items-center">
-                                            <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target=".bd-example-modal-lg">جزییات</button>
 
-
+                                            <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target="#basicModal">جزییات</button>
                                             @if($guaranteeForm->status == GuaranteeForm::STATUS_DRAFT)
                                                 <a href="{{ route('accounting.guaranteeForm.submitCode', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">ثبت کد تایید</a>
                                             @endif
@@ -73,13 +72,9 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="basicModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+
     </div>
-
-
-
-
-
 
 
 
@@ -97,15 +92,16 @@
     <script>
         function showDetails(guaranteeForm)
         {
-            $("#Modal").html()
+            $("#basicModal").html()
 
             $.ajax({
                 url: '{{ route('accounting.guaranteeForm.details', '+guaranteeForm+') }}'.replace('+guaranteeForm+', guaranteeForm),
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
-                    $("#Modal").html(data.html)
-                    $("#Modal").modal('show')
+                    $("#basicModal").html(data.html)
+                    $("#basicModal").removeAttr("aria-hidden");
+                    $("#basicModal").modal('show')
                 },
                 error: function(reject) {
 

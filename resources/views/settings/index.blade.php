@@ -102,6 +102,13 @@
                                     </select>
                                 </div>
                             </div>
+                            <p>ضمانت حسابداری</p>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>ماکزیمم مبلغ ضمانت حسابداری (ریال)</label>
+                                    <input class="form-control" type="text" name="max_guarantee_form" value="@if(isset($settings['MAX_GUARANTEE_FORM'])) {{ $settings['MAX_GUARANTEE_FORM'] }} @endif">
+                                </div>
+                            </div>
 
                             <button type="submit" class="btn btn-primary">ثبت</button>
                         </form>

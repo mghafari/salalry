@@ -103,7 +103,7 @@ class GuaranteeFormController extends Controller
 
     public function sendSmsForGuaranteeForm(GuaranteeForm $guaranteeForm)
     {
-        if (!$guaranteeForm->status != GuaranteeForm::STATUS_DRAFT)
+        if ($guaranteeForm->status != GuaranteeForm::STATUS_DRAFT)
         {
             return back()->with('error', 'شماره شما قبلا تایید شده است.');
         }
@@ -122,7 +122,7 @@ class GuaranteeFormController extends Controller
 
     public function postSubmitCode(GuaranteeForm $guaranteeForm, Request $request)
     {
-        if (!$guaranteeForm->status != GuaranteeForm::STATUS_DRAFT)
+        if ($guaranteeForm->status != GuaranteeForm::STATUS_DRAFT)
         {
             return back()->with('error', 'شماره شما قبلا تایید شده است.');
         }

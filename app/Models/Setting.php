@@ -22,6 +22,7 @@ class Setting extends Model
     CONST NATIONAL_CODE_PLACE = 'national_code_place';
     CONST PASSWORD_PLACE      = 'password_place';
     CONST LOGIN_USER          = 'login_user';
+    CONST MAX_GUARANTEE_FORM  = 'max_guarantee_form';
 
 
     const SETTING_KEYS = [
@@ -32,6 +33,7 @@ class Setting extends Model
         self::NATIONAL_CODE_PLACE,
         self::LOGIN_USER,
         self::PASSWORD_PLACE,
+        self::MAX_GUARANTEE_FORM
     ];
 
 

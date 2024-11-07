@@ -5,7 +5,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">جزییات درخواست شماره {{ $guaranteeForm->id }}</h5>
-            <button type="button" class="close" aria-hidden="true" data-bs-dismiss="modal"><span>&times;</span>
+            <button type="button" class="close" aria-hidden="true" data-bs-dismiss="modal" aria-label="Close"><span>&times;</span>
             </button>
         </div>
         <div class="modal-body table-responsive">
@@ -35,7 +35,7 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">بستن</button>
+            <button type="button" onclick="closeModal()" class="btn btn-danger light" data-dismiss="modal">بستن</button>
         </div>
     </div>
 </div>

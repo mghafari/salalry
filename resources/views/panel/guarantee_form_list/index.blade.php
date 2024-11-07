@@ -38,7 +38,7 @@
                                 <tbody>
                                 @foreach($guaranteeForms as $guaranteeForm)
                                     <tr>
-                                        <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . $guaranteeForm->other_last_name) : $guaranteeForm->user->name() }}</td>
+                                        <td>{{ $guaranteeForm->other_first_name ? ($guaranteeForm->other_first_name . ' ' . $guaranteeForm->other_last_name) : $guaranteeForm->user->name() }}</td>
                                         <td>{{ $guaranteeForm->other_national_id ? fa_num($guaranteeForm->other_national_id) : fa_num($guaranteeForm->user->national_code) }}</td>
                                         <td>{{ $guaranteeForm->user->name() }}</td>
                                         <td class="d-flex justify-content-center align-items-center">
@@ -58,7 +58,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" tabindex="-1" id="Modal">
+
     </div>
 
 
