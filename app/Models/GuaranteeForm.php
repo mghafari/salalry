@@ -20,6 +20,7 @@ class GuaranteeForm extends Model
         'other_first_name',
         'other_last_name',
         'other_national_id',
+        'type_shajareh',
         'status',
         'active_status'
     ];

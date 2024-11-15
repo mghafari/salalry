@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('other_national_id')->nullable();
             $table->integer('status');
             $table->boolean('active_status')->default(false);
+            $table->boolean('type_shajareh')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

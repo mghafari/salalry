@@ -11,6 +11,7 @@ use App\Models\GuaranteeFormDetail;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class GuaranteeFormController extends Controller
 {
@@ -44,12 +45,10 @@ class GuaranteeFormController extends Controller
                 'other_national_id'   => 'required',
                 'other_first_name'    => 'required',
                 'other_last_name'     => 'required',
-                'bank_or_institution' => 'required',
                 'price'               => 'required',
             ]);
         } else {
             $request->validate([
-                'bank_or_institution' => 'required',
                 'price'               => 'required',
             ]);
         }
@@ -88,7 +87,8 @@ class GuaranteeFormController extends Controller
             $guaranteeForm = GuaranteeForm::create([
                 'user_id'             => $user->id,
                 'price'               => en_num($request->price),
-                'bank_or_institution' => $request->bank_or_institution,
+                'bank_or_institution' => isset($request->type_shajareh) ? 'صندوق شجره نصر' : $request->bank_or_institution,
+                'type_shajareh'       => isset($request->type_shajareh) ? true : false,
                 'registration_owner'  => $request->registration_owner,
                 'other_first_name'    => $request->other_first_name ?? $user->first_name,
                 'other_last_name'     => $request->other_last_name ?? $user->last_name,
@@ -137,6 +137,7 @@ class GuaranteeFormController extends Controller
             return back()->with('error', 'شماره شما قبلا تایید شده است.');
         }
         $code = rand(10000, 99999);
+        // $code = 1000;
         $mobile = $guaranteeForm->user->mobile;
         session()->put('guaranteFormCode', $code);
 
@@ -197,5 +198,37 @@ class GuaranteeFormController extends Controller
             ['html' => $view],
             200
         );
+    }
+
+
+    public function userPdf(GuaranteeForm $guaranteeForm)
+    {
+        $userGuaranteeForm = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_USER)->first();
+        $cfoGuaranteeForm  = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_CFO)->first();
+        $ceoGuaranteeForm  = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_CEO)->first();
+
+
+        if ($guaranteeForm->registration_owner == GuaranteeForm::YOURSEF_REGISTRATION_OWNER)
+        {
+            $pdf = Pdf::loadView('panel.user_panel.accounting.guarantee.pdf.user_pdf', compact('guaranteeForm', 'userGuaranteeForm', 'cfoGuaranteeForm', 'ceoGuaranteeForm'));
+        } else {
+            $pdf = Pdf::loadView('panel.user_panel.accounting.guarantee.pdf.other_user_pdf', compact('guaranteeForm', 'userGuaranteeForm', 'cfoGuaranteeForm', 'ceoGuaranteeForm'));
+        }
+        
+
+        return $pdf->stream('user_pdf_'.$guaranteeForm->id.'.pdf');
+    }
+
+
+    public function accountingPdf(GuaranteeForm $guaranteeForm)
+    {
+        if ($guaranteeForm->type_shajareh)
+        {
+            $pdf = Pdf::loadView('panel.user_panel.accounting.guarantee.pdf.shajareh_accounting_pdf', compact('guaranteeForm'));
+        } elseif (!$guaranteeForm->type_shajareh && $guaranteeForm->registration_owner == GuaranteeForm::OTHER_REGISTRATION_OWNER) {
+            $pdf = Pdf::loadView('panel.user_panel.accounting.guarantee.pdf.accounting_pdf', compact('guaranteeForm'));
+        }
+
+        return $pdf->stream('accounting_pdf_'.$guaranteeForm->id.'.pdf');
     }
 }

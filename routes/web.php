@@ -48,6 +48,9 @@ Route::middleware('auth')->prefix('accounting')->name('accounting.')->group(func
         Route::post('/store', [GuaranteeFormController::class, 'store'])->name('store');
         Route::delete('/delete/{guaranteeForm}', [GuaranteeFormController::class, 'delete'])->name('delete');
 
+        Route::get('/user-pdf/{guaranteeForm}', [GuaranteeFormController::class, 'userPdf'])->name('userPdf');
+        Route::get('/accounting-pdf/{guaranteeForm}', [GuaranteeFormController::class, 'accountingPdf'])->name('accountingPdf');
+
 
         Route::get('/submit-code/{guaranteeForm}', [GuaranteeFormController::class, 'submitCode'])->name('submitCode');
         Route::post('/send-sms-for-guarantee-form/{guaranteeForm}', [GuaranteeFormController::class, 'sendSmsForGuaranteeForm'])->name('sendSmsForGuaranteeForm');

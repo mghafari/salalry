@@ -56,6 +56,14 @@
                             <div class="row">
 
                                 <div class="form-group col-md-6 col-12">
+                                    <label for="toggle-checkbox">صندوق شجره نصر</label>
+                                    <input type="checkbox" name="type_shajareh" style="margin-right: 3px" id="toggle-checkbox">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12" id="bank-or-institution-field">
                                     <label>نام موسسه یا بانک</label>
                                     <input type="text" name="bank_or_institution" class="form-control">
                                 </div>
@@ -95,6 +103,17 @@
                     $('#other_options').hide();
                 }
             });
+        });
+    </script>
+    <script>
+        const checkbox = document.getElementById('toggle-checkbox');
+
+        checkbox.addEventListener('change', function () {
+            if ($(this).is(':checked')) {
+                $('#bank-or-institution-field').hide();
+            } else {
+                $('#bank-or-institution-field').show();
+            }
         });
     </script>
 @endsection

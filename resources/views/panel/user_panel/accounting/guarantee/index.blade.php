@@ -54,7 +54,8 @@
                                             @endif
 
                                             @if ($guaranteeForm->status == GuaranteeForm::STATUS_APPROVED_BY_CEO)
-                                                <a href="" class="btn btn-info btn-xs mr-2">دانلود</a>
+                                                <a href="{{ route('accounting.guaranteeForm.userPdf', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">دانلود درخواست کاربر</a>
+                                                <a href="{{ route('accounting.guaranteeForm.accountingPdf', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">دانلود نامه حسابداری</a>
                                             @endif
 
                                             <form action="{{route('accounting.guaranteeForm.delete', $guaranteeForm->id)}}"  method="post" onsubmit="return ConfirmDelete()">
