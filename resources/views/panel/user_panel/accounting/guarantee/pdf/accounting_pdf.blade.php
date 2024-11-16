@@ -32,8 +32,8 @@
         <br>
         بدینوسیله امور مالی این شرکت متعهد می‌گردد، چنانچه آقای/خانم {{ $guaranteeForm->other_first_name . ' ' . $guaranteeForm->other_last_name }}<br>
         به شماره ملی {{ $guaranteeForm->other_national_id }} اقساط وام دریافتی خود را نزد آن شعبه پرداخت ننماید،<br>
-        به محض اعلام آن بانک از حقوق و مزایای ضامن ایشان آقای {{ $guaranteeForm->user->name }}<br>
-        به شماره ملی {{ $guaranteeForm->user->national_code }} کسر و به حساب اعلام شده واریز نماید.<br>
+        به محض اعلام آن بانک از حقوق و مزایای ضامن ایشان آقای {{ $guaranteeForm->user->name() }}<br>
+        به شماره ملی {{ fa_num($guaranteeForm->user->national_code) }} کسر و به حساب اعلام شده واریز نماید.<br>
         ضمناً سقف تعهدات مبلغ ...... می‌باشد.<br>
         بدیهی است این امر تا مادامی که نامبرده در این شرکت شاغل می‌باشد مقدور است.
     </p>
