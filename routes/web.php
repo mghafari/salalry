@@ -35,10 +35,10 @@ Route::get('form', [FormController::class, 'form'])->name('form.import')->middle
 Route::post('import', [FormController::class, 'import'])->name('file.import')->middleware('admin');
 Route::get('/fish/user' , [FormController::class, 'showUser'])->name('user.fish.show')->middleware('auth');
 Route::get('/fish/admin' , [FormController::class, 'index'])->name('admin.fish.show')->middleware('admin');
-Route::get('/fish/print/{form}' , [FormController::class, 'print'])->name('fish.print')->middleware('admin');
-Route::get('/fish/show/{form}' , [FormController::class, 'show'])->name('fish.show')->middleware('auth');
+Route::get('/fish/print/{payslipHeadImport}' , [FormController::class, 'print'])->name('fish.print')->middleware('admin');
+Route::get('/fish/show/{payslipHeadImport}' , [FormController::class, 'show'])->name('fish.show')->middleware('auth');
 Route::get('/' , [FormController::class, 'latestForm'])->name('fish.first')->middleware('auth');
-Route::delete('form/destroy/{form}' , [FormController::class, 'destroy'])->name('form.destroy')->middleware('auth');
+Route::delete('form/destroy/{payslipHeadImport}' , [FormController::class, 'destroy'])->name('form.destroy')->middleware('auth');
 
 
 Route::middleware('auth')->prefix('accounting')->name('accounting.')->group(function() {

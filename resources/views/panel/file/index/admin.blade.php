@@ -81,32 +81,32 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($forms as $form)
+                                @foreach($payslipHeadImports as $payslipHeadImport)
 
                                     <tr>
-                                        <td>{{$form->id}}</td>
+                                        <td>{{$payslipHeadImport->id}}</td>
 
 
                                         <td>
-                                            {{$form->user->name()}}
+                                            {{$payslipHeadImport->user->name()}}
                                         </td>
 
                                         <td>
-                                            {{$form->year}}
+                                            {{$payslipHeadImport->year}}
                                         </td>
                                         <td>
-                                            {{$form->month}}
+                                            {{$payslipHeadImport->month}}
 
                                         </td>
 
-                                        {{--  <td>{{number_format($form->khalesepardakhti ?? 0)}}</td>  --}}
+                                        {{--  <td>{{number_format($payslipHeadImport->khalesepardakhti ?? 0)}}</td>  --}}
 
-                                        <td>{{verta($form->created_at)->formatJalaliDate()}}</td>
+                                        <td>{{verta($payslipHeadImport->created_at)->formatJalaliDate()}}</td>
                                         @include('panel.layouts.download')
 
                                         <td>
                                             <div class="d-flex">
-                                                <form action="{{route('form.destroy', $form)}}" method="post"
+                                                <form action="{{route('form.destroy', $payslipHeadImport)}}" method="post"
                                                       onsubmit="return ConfirmDelete()">
                                                     @method('delete')
                                                     @csrf

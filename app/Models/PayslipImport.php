@@ -14,4 +14,9 @@ class PayslipImport extends Model
         'value',
         'payslip_head_import_id'
     ];
+
+    public function payslipHeadImport()
+    {
+        return $this->belongsTo(PayslipHeadImport::class);
+    }
 }

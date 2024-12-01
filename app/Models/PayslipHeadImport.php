@@ -20,4 +20,15 @@ class PayslipHeadImport extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function payslipHeadSetting()
+    {
+        return $this->belongsTo(PayslipHeadSetting::class);
+    }
+
+    public function payslipImports()
+    {
+        return $this->hasMany(PayslipImport::class);
+    }
+
 }

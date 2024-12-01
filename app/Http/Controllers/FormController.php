@@ -16,6 +16,7 @@ use App\Models\Form;
 use App\Models\PayslipHeadImport;
 use App\Models\PayslipHeadSetting;
 use App\Models\PayslipImport;
+use App\Models\PayslipSetting;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
@@ -43,7 +44,7 @@ class FormController extends Controller
         // }
         // $forms=  $forms->get();
 
-        $forms = PayslipHeadImport::when($request->month, function ($query) use ($request) {
+        $payslipHeadImports = PayslipHeadImport::when($request->month, function ($query) use ($request) {
             return $query->where('month', $request->month);
         })->when($request->year, function ($query) use ($request) {
             return $query->where('year', $request->year);
@@ -51,7 +52,7 @@ class FormController extends Controller
         ->get();
 
 
-        return view('panel.file.index.admin',compact('forms'));
+        return view('panel.file.index.admin',compact('payslipHeadImports'));
 
     }
 
@@ -177,11 +178,47 @@ class FormController extends Controller
         //  return view('panel.fish.show', compact('form','user'));
     }
 
-    public function print(Form $form)
+    public function print(PayslipHeadImport $payslipHeadImport)
     {
 
+        $userInformationFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_USRER_INFORMATION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
 
-        return view('panel.fish.pdf', compact('form'));
+        $installmentFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_INSTALLMENT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+        $benefitFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_BENEFIT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+        $deductionFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_DEDUCTION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+
+        return view('panel.fish.pdf', compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields'));
     }
 
     /**
@@ -213,20 +250,67 @@ class FormController extends Controller
      * @param Form $form
      * @return Response
      */
-    public function destroy(Form $form)
+    public function destroy(PayslipHeadImport $payslipHeadImport)
     {
-        $form->delete();
-        return back();
-        //
+
+        try {
+            // Delete related payslipImports
+            $payslipHeadImport->payslipImports()->delete();
+    
+            // Delete the payslipHeadImport
+            $payslipHeadImport->delete();
+        } catch (\Exception $e) {
+            return back()->with('error','متاسفانه حذف انجام نشد.');
+        }
+
+        return back()->with('success','حذف با موفقیت انجام شد.');
     }
 
-    public function show(Form $form)
+    public function show(PayslipHeadImport $payslipHeadImport)
     {
         $user=\auth()->user();
 
-        if($user->role=='admin' or  $user->id ==$form->user_id )
+        $userInformationFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_USRER_INFORMATION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+        $installmentFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_INSTALLMENT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+        $benefitFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_BENEFIT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+
+        $deductionFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_DEDUCTION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->get();
+    
+
+
+        if($user->role=='admin' or  $user->id ==$payslipHeadImport->user_id )
         {
-            return \view('panel.fish.show',compact('form'));
+            return \view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields'));
 
         }else
             return abort('403');

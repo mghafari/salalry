@@ -92,6 +92,6 @@ class PayslipDetailSettingController extends Controller
             return back()->with('error','متاسفانه حذف انجام نشد.');
         }
 
-        return back()->with('error','حذف با موفقیت انجام شد.');
+        return back()->with('success','حذف با موفقیت انجام شد.');
     }
 }
