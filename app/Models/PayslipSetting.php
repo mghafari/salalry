@@ -18,15 +18,17 @@ class PayslipSetting extends Model
         'status'
     ];
 
-    CONST CATEGORY_BENEFIT     = 1;
-    CONST CATEGORY_DEDUCTION   = 2;
-    CONST CATEGORY_INSTALLMENT = 3;
+    CONST CATEGORY_BENEFIT           = 1;
+    CONST CATEGORY_DEDUCTION         = 2;
+    CONST CATEGORY_INSTALLMENT       = 3;
+    CONST CATEGORY_USRER_INFORMATION = 4;
 
 
     CONST TITLE_CATEGORY = [
-        self::CATEGORY_BENEFIT     => 'ستون مزایا',
-        self::CATEGORY_DEDUCTION   => 'ستون کسری',
-        self::CATEGORY_INSTALLMENT => 'ستون کارکرد',
+        self::CATEGORY_BENEFIT           => 'ستون مزایا',
+        self::CATEGORY_DEDUCTION         => 'ستون کسری',
+        self::CATEGORY_INSTALLMENT       => 'ستون کارکرد',
+        self::CATEGORY_USRER_INFORMATION => 'ستون مشخصات کاربر',
     ];
 
     CONST STATUS_ACTIVE   = 1;
