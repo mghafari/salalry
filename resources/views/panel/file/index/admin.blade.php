@@ -69,7 +69,7 @@
 
                                     <th>سال </th>
                                     <th>ماه </th>
-                                    <th>خالص پرداختی</th>
+                                    {{--  <th>خالص پرداختی</th>  --}}
 
                                     <th>تاریخ بارگذاری</th>
 
@@ -88,7 +88,7 @@
 
 
                                         <td>
-                                            {{$form->name.' '.$form->family}}
+                                            {{$form->user->name()}}
                                         </td>
 
                                         <td>
@@ -99,14 +99,7 @@
 
                                         </td>
 
-      <td>
-          {{number_format($form->khalesepardakhti ?? 0)}}
-
-                                        </td>
-
-
-
-
+                                        {{--  <td>{{number_format($form->khalesepardakhti ?? 0)}}</td>  --}}
 
                                         <td>{{verta($form->created_at)->formatJalaliDate()}}</td>
                                         @include('panel.layouts.download')

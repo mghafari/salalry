@@ -13,7 +13,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SalaryImport;
 use App\Imports\SalaryImportWithSetting;
 use App\Models\Form;
+use App\Models\PayslipHeadImport;
 use App\Models\PayslipHeadSetting;
+use App\Models\PayslipImport;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
@@ -28,24 +30,29 @@ class FormController extends Controller
      */
     public function index(Request $request)
     {
-        $forms=Form::where('id','>',1);
-        if($request->has('year'))
-        {
-            $forms=   $forms->where('year', $request->year);
+        // $forms=Form::where('id','>',1);
+        // if($request->has('year'))
+        // {
+        //     $forms=   $forms->where('year', $request->year);
 
-        }
-        if($request->has('month'))
-        {
-            $forms=  $forms->where('month', $request->month);
+        // }
+        // if($request->has('month'))
+        // {
+        //     $forms=  $forms->where('month', $request->month);
 
-        }
-   $forms=  $forms->get();
+        // }
+        // $forms=  $forms->get();
 
+        $forms = PayslipHeadImport::when($request->month, function ($query) use ($request) {
+            return $query->where('month', $request->month);
+        })->when($request->year, function ($query) use ($request) {
+            return $query->where('year', $request->year);
+        })
+        ->get();
 
 
         return view('panel.file.index.admin',compact('forms'));
 
-        //
     }
 
     /**

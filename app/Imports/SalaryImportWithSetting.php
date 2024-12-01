@@ -87,7 +87,7 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
     
                     PayslipImport::updateOrcreate([
                         'payslip_head_import_id' => $payslipHeadImport->id,
-                        'index' => $colIndex,
+                        'index'                  => $colIndex,
                     ], [
                         'value' => $singleRow,
                     ]);

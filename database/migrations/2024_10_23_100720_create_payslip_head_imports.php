@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payslip_head_setting_id')->constrained('payslip_head_settings');
             $table->foreignId('user_id')->constrained('users');
+            $table->integer('month');
+            $table->integer('year');
             $table->timestamps();
         });
     }

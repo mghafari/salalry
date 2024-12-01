@@ -9,10 +9,15 @@ class PayslipHeadImport extends Model
 {
     use HasFactory;
 
-    protected $fillablle = [
+    protected $fillable = [
         'payslip_head_setting_id',
         'user_id',
         'month',
         'year'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
