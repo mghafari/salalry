@@ -81,4 +81,17 @@ class PayslipDetailSettingController extends Controller
 
         return back()->with('success', 'عملیات با موفقیت انجام شد.');
     }
+
+    public function delete(PayslipHeadSetting $payslipHeadSetting, PayslipSetting $payslipSetting) 
+    {
+
+        try {
+            $payslipSetting->delete();
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error','متاسفانه حذف انجام نشد.');
+        }
+
+        return back()->with('error','حذف با موفقیت انجام شد.');
+    }
 }

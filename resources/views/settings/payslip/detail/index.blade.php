@@ -113,9 +113,19 @@
                                     <td>{{ PayslipSetting::TITLE_STATUS[$payslipDetailSetting->visible_zero] }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('settings.payslip.detail.edit', ['payslipHeadSetting' => $payslipHeadSetting->id, 'payslipSetting' => $payslipDetailSetting->id]) }}"
-                                                class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                    class="fa fa-pencil"></i></a>
+                                            <div>
+                                                <a href="{{ route('settings.payslip.detail.edit', ['payslipHeadSetting' => $payslipHeadSetting->id, 'payslipSetting' => $payslipDetailSetting->id]) }}"
+                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                        class="fa fa-pencil"></i></a>
+                                            </div>
+
+                                            <div>
+                                                <form action="{{route('settings.payslip.detail.delete', ['payslipHeadSetting' => $payslipHeadSetting->id, 'payslipSetting' => $payslipDetailSetting->id])}}" method="post" onsubmit="return ConfirmDelete()">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-warning shadow btn-xs sharp mr-1" onsubmit="ConfirmDelete()"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

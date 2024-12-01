@@ -89,6 +89,7 @@ Route::prefix('settings')->name('settings.')->middleware('admin')->group(functio
             Route::post('store', [PayslipDetailSettingController::class, 'store'])->name('store');
             Route::get('/edit/{payslipSetting}', [PayslipDetailSettingController::class, 'edit'])->name('edit');
             Route::post('/update/{payslipSetting}', [PayslipDetailSettingController::class, 'update'])->name('update');
+            Route::delete('{payslipSetting}', [PayslipDetailSettingController::class, 'delete'])->name('delete');
         });
     });
 });
