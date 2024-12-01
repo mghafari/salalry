@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -47,9 +48,21 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $exclusions = [
-                $this->settings['nationalCodePlace']
-            ];
+            $loginSetting = Setting::where('key', 'LOGIN_USER')->first();
+            if (!$loginSetting) {
+                return back()->with('error', 'لطفا نحوه ورود کاربر را از قسمت تنظیمات سیستم وارد کنید.');
+            }
+
+            if ($loginSetting->value == 'pass') {
+                $user->update([
+                    'password' => Hash::make($this->settings['passwordPlace']),
+                ]);
+
+                $exclusions[] = $this->settings['passwordPlace'];
+            }
+
+            
+            $exclusions[] = $this->settings['nationalCodePlace'];
 
             $colIndex = 0;
             foreach ($row as $singleRow)

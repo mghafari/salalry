@@ -76,7 +76,10 @@ class FormController extends Controller
         }
 
         $nationalCodePlace = Setting::where('key', 'NATIONAL_CODE_PLACE')->first();
-        $passwordPlace = Setting::where('key', 'PASSWORD_PLACE')->first();
+        $loginSetting = Setting::where('key', 'LOGIN_USER')->first();
+        if (!$loginSetting) {
+            return back()->with('error', 'لطفا نحوه ورود کاربر را از قسمت تنظیمات سیستم وارد کنید.');
+        }
 
         if (!$nationalCodePlace || !isset($nationalCodePlace->value))
         {
@@ -85,13 +88,19 @@ class FormController extends Controller
 
         $settings = [
             'nationalCodePlace' => $nationalCodePlace->value,
-            'passwordPlace' => $passwordPlace->value,
         ];
+
+        if ($loginSetting->value == 'pass') {
+            $passwordPlace = Setting::where('key', 'PASSWORD_PLACE')->first();
+            if (!$passwordPlace) {
+                return back()->with('error', 'لطفا مکان پسورد را در قسمت تنظیمات سیستم وارد کنید.');
+            }
+            $settings['passwordPlace'] = $passwordPlace->value;
+        }
 
         Excel::import(new SalaryImportWithSetting($request->year, $request->month, $payslipHeadSetting, $settings), $request->file('file')->store('temp'));
         toastr()->success('اطلاعات با موفقیت وارد گردید!');
         return back();
-        //
     }
 
     /**
