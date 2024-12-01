@@ -31,7 +31,7 @@ class Admin
 
         }else
         {
-            return route('login');
+            return redirect()->route('login');
 
         }
 
