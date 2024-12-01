@@ -3,11 +3,13 @@
 namespace App\Imports;
 
 use App\Models\Form;
+use App\Models\PayslipHeadImport;
 use App\Models\PayslipImport;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -65,25 +67,36 @@ class SalaryImportWithSetting implements ToCollection, WithHeadingRow
             $exclusions[] = $this->settings['nationalCodePlace'];
 
             $colIndex = 0;
-            foreach ($row as $singleRow)
-            {
-                if (in_array($colIndex, $exclusions))
-                {
-                    $colIndex++; 
-                    continue;
-                }
+            
+            DB::transaction(function () use ($row, $colIndex, $exclusions, $user){
 
-                PayslipImport::updateOrcreate([
+                $payslipHeadImport = PayslipHeadImport::firstOrCreate([
                     'payslip_head_setting_id' => $this->payslipHeadSetting->id,
-                    'user_id' => $user->id,
-                    'index' => $colIndex,
-                ], [
-                    'value' => $singleRow,
-                ]);
+                    'user_id'                 => $user->id,
+                    'month'                   => $this->month,
+                    'year'                    => $this->year
+                ],[]);
 
-                $colIndex++; 
-
-            }
+                foreach ($row as $singleRow)
+                {
+                    if (in_array($colIndex, $exclusions))
+                    {
+                        $colIndex++; 
+                        continue;
+                    }
+    
+                    PayslipImport::updateOrcreate([
+                        'payslip_head_import_id' => $payslipHeadImport->id,
+                        'index' => $colIndex,
+                    ], [
+                        'value' => $singleRow,
+                    ]);
+    
+                    $colIndex++; 
+    
+                }
+            });
+            
 
         
         }

@@ -68,6 +68,11 @@ class FormController extends Controller
      */
     public function import(Request $request)
     {
+        $request->validate([
+            'month' => 'required',
+            'year'  => 'required',
+        ]);
+
         $payslipHeadSetting = PayslipHeadSetting::where('status', PayslipHeadSetting::STATUS_ACTIVE)->first();
 
         if (!$payslipHeadSetting)
