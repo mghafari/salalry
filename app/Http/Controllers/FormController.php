@@ -188,7 +188,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $installmentFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_INSTALLMENT)
@@ -197,7 +197,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $benefitFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_BENEFIT)
@@ -206,7 +206,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $deductionFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_DEDUCTION)
@@ -215,10 +215,15 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
+
+        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
+        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
+        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
+        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
 
 
-        return view('panel.fish.pdf', compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields'));
+        return view('panel.fish.pdf', compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
     }
 
     /**
@@ -305,12 +310,17 @@ class FormController extends Controller
             ->limit(1)
         ])
         ->orderBy('sort')->get();
-    
+
+
+        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
+        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
+        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
+        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
 
 
         if($user->role=='admin' or  $user->id ==$payslipHeadImport->user_id )
         {
-            return \view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields'));
+            return \view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
 
         }else
             return abort('403');

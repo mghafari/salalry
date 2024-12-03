@@ -109,7 +109,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>مانده وام ها</td>
+                            <td>مانده وام ها:
+                                {{ fa_num($totalInstallment) }} ريال
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
@@ -124,9 +126,12 @@
                         </tr>
                         <tr>
                             <td>جمع حقوق و مزایا:
-                                
+                                {{ fa_num($totalBenefit) }} ريال
                             </td>
-                            <td></td>
+                            <td>
+                                جمع کسورات:
+                                {{ fa_num($totalDeduction) }} ريال
+                            </td>
                         </tr>
                         <tr>
 
@@ -139,11 +144,8 @@
                                         <td>
                                             خالص پرداختی:
 
-                                                  
+                                            {{ fa_num($netPaid) }}    
                                             ريال
-                                        </td>
-                                        <td class="inf">
-                                             ريال
                                         </td>
                                     </tr>
                                     </tbody>
