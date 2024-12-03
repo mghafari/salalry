@@ -51,6 +51,10 @@
                                             @elseif ($guaranteeForm->status == GuaranteeForm::STATUS_APPROVED_BY_CEO)
                                                 <a href="{{ route('adminGuaranteeFormList.setStatusDraft', $guaranteeForm->id) }}" class="btn btn-light btn-xs mr-2">غیرفعال کردن</a>
                                             @endif
+                                            @if ($guaranteeForm->status == GuaranteeForm::STATUS_APPROVED_BY_CEO)
+                                                <a href="{{ route('accounting.guaranteeForm.userPdf', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">دانلود درخواست کاربر</a>
+                                                <a href="{{ route('accounting.guaranteeForm.accountingPdf', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">دانلود نامه حسابداری</a>
+                                            @endif
                                             <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target=".bd-example-modal-lg">جزییات</button>
                                         </td>
                                     </tr>
