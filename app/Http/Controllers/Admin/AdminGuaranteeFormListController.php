@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class AdminGuaranteeFormListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $guaranteeForms = GuaranteeForm::orderByRaw(
             'CASE WHEN status = ? THEN 1 ELSE 2 END', 
             [GuaranteeForm::STATUS_APPROVED_BY_USER]
-        )->paginate(30);
+        )->when($request->user_id, function($query) use($request) {
+            return $query->where('user_id', $request->user_id);
+        })->paginate(30);
 
         return view('panel.admin_guarantee_form_list.index', compact('guaranteeForms'));
     }

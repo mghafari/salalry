@@ -146,6 +146,7 @@
 
                                     <th>موبایل</th>
                                     <th>نقش</th>
+                                    <th>مشاهده درخواست‌ها</th>
                                     <th>مشاهده</th>
 
 
@@ -167,6 +168,13 @@
                                         <td>{{$user->mobile}}</td>
                                         <td>{{ User::ROLE_TITLE[$user->role] }}</td>
 
+                                        <td>
+                                            <div class="d-flex">
+                                                <a class="btn btn-success shadow btn-xs sharp mr-1" href="{{ route('adminGuaranteeFormList.index', ['user_id' => $user->id]) }}">
+                                                    <i class="fa fa-file"></i>
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex">
                                                 <form action="{{route('user.fish' , $user)}}" method="get">
