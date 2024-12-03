@@ -24,6 +24,7 @@ class PayslipDetailSettingController extends Controller
             'title'    => 'required',
             'category' => 'required|in:' . implode(',', array_keys(PayslipSetting::TITLE_CATEGORY)),
             'status'   => 'required|in:' . implode(',', array_keys(PayslipSetting::TITLE_STATUS)),
+            'sort'     => 'required|integer'
         ]);
 
         $payslip_setting = PayslipSetting::where('payslip_head', $payslipHeadSetting->id)->where('index', $request->index)->first();
@@ -39,7 +40,8 @@ class PayslipDetailSettingController extends Controller
             'title'        => $request->title,
             'category'     => $request->category,
             'visible_zero' => $request->visible_zero,
-            'status'       => $request->status
+            'status'       => $request->status,
+            'sort'         => en_num($request->sort)
         ]);
 
 
@@ -60,6 +62,7 @@ class PayslipDetailSettingController extends Controller
             'title'    => 'required',
             'category' => 'required|in:' . implode(',', array_keys(PayslipSetting::TITLE_CATEGORY)),
             'status'   => 'required|in:' . implode(',', array_keys(PayslipSetting::TITLE_STATUS)),
+            'sort'     => 'required|integer'
         ]);
 
         $payslip_setting = PayslipSetting::where('payslip_head', $payslipHeadSetting->id)->where('index', $request->index)->where('id', '!=', $payslipSetting->id)->first();
@@ -75,7 +78,8 @@ class PayslipDetailSettingController extends Controller
             'title'        => $request->title,
             'category'     => $request->category,
             'visible_zero' => $request->visible_zero,
-            'status'       => $request->status
+            'status'       => $request->status,
+            'sort'         => en_num($request->sort)
         ]);
 
 

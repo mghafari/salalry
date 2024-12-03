@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('category');
             $table->boolean('visible_zero')->default(0);
+            $table->integer('sort');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

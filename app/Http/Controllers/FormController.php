@@ -277,7 +277,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $installmentFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_INSTALLMENT)
@@ -286,7 +286,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $benefitFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_BENEFIT)
@@ -295,7 +295,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
 
         $deductionFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
         ->where('category', PayslipSetting::CATEGORY_DEDUCTION)
@@ -304,7 +304,7 @@ class FormController extends Controller
             ->where('payslip_head_import_id', $payslipHeadImport->id)
             ->limit(1)
         ])
-        ->get();
+        ->orderBy('sort')->get();
     
 
 

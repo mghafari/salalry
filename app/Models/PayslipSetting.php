@@ -15,7 +15,8 @@ class PayslipSetting extends Model
         'title',
         'category',
         'visible_zero',
-        'status'
+        'status',
+        'sort'
     ];
 
     CONST CATEGORY_BENEFIT           = 1;

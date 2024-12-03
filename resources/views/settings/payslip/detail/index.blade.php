@@ -37,6 +37,7 @@
                                 <th>برچسب</th>
                                 <th>جایگاه</th>
                                 <th>وضعیت</th>
+                                <th>ترتیب</th>
                                 <th>عدم نمایش در صورت صفر بودن</th>
                                 <th>عملیات</th>
                             </tr>
@@ -85,6 +86,12 @@
                                         @enderror
                                     </td>
                                     <td>
+                                        <input type="text" value="@if(isset($payslipSetting)) {{ $payslipSetting->sort }} @endif" name="sort">
+                                        @error('sort')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </td>
+                                    <td>
                                         <select name="visible_zero" class="form-control">
                                             @foreach(PayslipSetting::TITLE_STATUS as $key => $value)
                                                 <option @if(isset($payslipSetting) && $payslipSetting->visible_zero == $key) selected @endif value="{{ $key }}">{{ $value }}</option>
@@ -110,6 +117,7 @@
                                     <td>
                                         {{ PayslipSetting::TITLE_STATUS[$payslipDetailSetting->status] }}
                                     </td>
+                                    <td>{{ $payslipDetailSetting->sort }}</td>
                                     <td>{{ PayslipSetting::TITLE_STATUS[$payslipDetailSetting->visible_zero] }}</td>
                                     <td>
                                         <div class="d-flex">
