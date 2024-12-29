@@ -23,6 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">کارتابل درخواست ضمانت حسابداری</h4>
+                        <a href="{{ route('accounting.guaranteeForm.create') }}" class="btn btn-success">ثبت درخواست جدید</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
