@@ -124,38 +124,55 @@ class FormController extends Controller
      */
     public function showUser(Request $request)
     {
-        $user = Auth::user();
-        if ($request->has('year') and $request->has('month')) {
-            $form = Form::where('user_id', Auth::id())->where('year', $request->year)->where('month', $request->month)->first();
+        $user=Auth::user();
+        $payslipHeadImport = PayslipHeadImport::where('user_id', $user->id)
+        ->orderBy('year', 'desc')
+        ->orderBy('month', 'desc')
+        ->first();
 
-        } else {
+        $userInformationFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_USRER_INFORMATION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->orderBy('sort')->get();
 
-            $form = Form::where('user_id', $user->id)->orderby('year', 'desc')->orderby('month', 'desc')->first();
+        $installmentFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_INSTALLMENT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->orderBy('sort')->get();
+
+        $benefitFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_BENEFIT)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->orderBy('sort')->get();
+
+        $deductionFields = PayslipSetting::where('payslip_head', $payslipHeadImport->payslipHeadSetting->id)
+        ->where('category', PayslipSetting::CATEGORY_DEDUCTION)
+        ->addSelect(['value' => PayslipImport::select('value')
+            ->whereColumn('index' , 'payslip_settings.index')
+            ->where('payslip_head_import_id', $payslipHeadImport->id)
+            ->limit(1)
+        ])
+        ->orderBy('sort')->get();
 
 
-        }
+        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
+        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
+        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
+        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
 
-        return view('panel.fish.show', compact('form', 'user'));
-    }
-
-    public function showAdmin(Request $request)
-    {
-
-        $users = User::orderby('family')->get();
-        if ($request->has('year') and $request->has('month') and $request->has('user')) {
-            $form = Form::where('user_id', $request->user)->where('year', $request->year)->where('month', $request->month)->first();
-
-
-        } else {
-            $form = Form::where('user_id', Auth::id())->orderby('month')->orderby('year')->first();
-
-        }
-
-
-        return view('panel.fish.show', compact('form', 'users'));
-
-
-        //
+        return view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
     }
 
     public function latestForm()
@@ -318,9 +335,9 @@ class FormController extends Controller
         $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
 
 
-        if($user->role=='admin' or  $user->id ==$payslipHeadImport->user_id )
+        if($user->role=='admin' or  $user->id == $payslipHeadImport->user_id )
         {
-            return \view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
+            return view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
 
         }else
             return abort('403');
