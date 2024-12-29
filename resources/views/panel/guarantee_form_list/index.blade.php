@@ -45,6 +45,7 @@
                                         <td>{{ $guaranteeForm->user->name() }}</td>
                                         <td class="d-flex justify-content-end align-items-center">
                                             <button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" onclick="showDetails({{ $guaranteeForm->id }})" data-target=".bd-example-modal-lg">جزییات</button>
+                                            <a href="{{ route('accounting.guaranteeForm.userPdf', $guaranteeForm->id) }}" class="btn btn-info btn-xs mr-2">مشاهده درخواست کاربر</a>
                                             @if ($guaranteeForm->status != GuaranteeForm::STATUS_APPROVED_BY_CEO)
                                             <a onclick="setStatus({{ $guaranteeForm->id }})" class="btn btn-info btn-xs mr-2 text-white">ثبت وضعیت</a>
                                             @else

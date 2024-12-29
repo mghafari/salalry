@@ -203,6 +203,11 @@ class GuaranteeFormController extends Controller
 
     public function userPdf(GuaranteeForm $guaranteeForm)
     {
+        $user = Auth::user();
+        if ($user->role != 'admin' && $user->role != 'cfo' && $user->role != 'ceo' && $user->id != $guaranteeForm->user_id)
+        {
+            return abort('403');
+        }
         $userGuaranteeForm = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_USER)->first();
         $cfoGuaranteeForm  = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_CFO)->first();
         $ceoGuaranteeForm  = GuaranteeFormDetail::where('gurantee_form_id', $guaranteeForm->id)->where('new_status', GuaranteeForm::STATUS_APPROVED_BY_CEO)->first();
