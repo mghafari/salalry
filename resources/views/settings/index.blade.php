@@ -61,47 +61,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <p>اطلاعات فیش حقوقی</p>
-                            <div class="row">
-                                <div class="form-group col-md-6 col-12">
-                                    <label>جمع مزایا</label>
-                                    <select name="total_benefit" class="form-control" id="">
-                                        <option selected value="">هیچکدام</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['TOTAL_BENEFIT']) && $settings['TOTAL_BENEFIT'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>جمع کسورات</label>
-                                    <select name="total_deduction" class="form-control" id="">
-                                        <option selected value="">هیچکدام</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['TOTAL_DEDUCTION']) && $settings['TOTAL_DEDUCTION'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>جمع اقساط</label>
-                                    <select name="total_installment" class="form-control" id="">
-                                        <option selected value="">هیچکدام</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['TOTAL_INSTALLMENT']) && $settings['TOTAL_INSTALLMENT'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>خالص پرداختی</label>
-                                    <select name="net_paid" class="form-control" id="">
-                                        <option selected value="">هیچکدام</option>
-                                        @for ($i = 0; $i <= 100; $i++)
-                                            <option value="{{ $i }}" @if(isset($settings['NET_PAID']) && $settings['NET_PAID'] == $i) selected @endif >{{ Setting::getExcelColumn($i) }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
                             <p>ضمانت حسابداری</p>
                             <div class="row">
                                 <div class="form-group col-md-6 col-12">

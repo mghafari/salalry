@@ -19,8 +19,20 @@ class PayslipHeadSettingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title'                   => 'required',
+            'place_total_benefit'     => 'required',
+            'place_total_deduction'   => 'required',
+            'place_total_installment' => 'required',
+            'place_net_paid'          => 'required',
         ]);
+
+        $variables = [$request->place_total_benefit, $request->place_total_deduction, $request->place_total_installment, $request->place_net_paid]; // متغیرهای خود را اینجا قرار دهید
+
+        if (count($variables) !== count(array_unique($variables))) {
+            return back()->with('error', 'یکی از فیلد های جمع مزایا یا جمع کسورات یا جمع اقساط یا خالص پرداختی مشابه دیگری است.');
+        }
+
+
 
         DB::transaction(function () use ($request) {
             PayslipHeadSetting::where('status', PayslipHeadSetting::STATUS_ACTIVE)->update([
@@ -28,8 +40,12 @@ class PayslipHeadSettingController extends Controller
             ]);
 
             PayslipHeadSetting::create([
-                'title'  => $request->title,
-                'status' => $request->status
+                'title'                   => $request->title,
+                'place_total_benefit'     => $request->place_total_benefit,
+                'place_total_deduction'   => $request->place_total_deduction,
+                'place_total_installment' => $request->place_total_installment,
+                'place_net_paid'          => $request->place_net_paid,
+                'status'                  => $request->status
             ]);            
         });
 

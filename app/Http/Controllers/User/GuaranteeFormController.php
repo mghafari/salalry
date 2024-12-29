@@ -117,10 +117,10 @@ class GuaranteeFormController extends Controller
         try {
             $guaranteeForm->delete();
         } catch (\Exception $e) {
-            return back()->with('alert.danger','متاسفانه حذف انجام نشد.');
+            return back()->with('error','متاسفانه حذف انجام نشد.');
         }
 
-        return back()->with('alert.success','حذف با موفقیت انجام شد.');
+        return back()->with('error','حذف با موفقیت انجام شد.');
     }
 
 
@@ -136,8 +136,8 @@ class GuaranteeFormController extends Controller
         {
             return back()->with('error', 'شماره شما قبلا تایید شده است.');
         }
-        $code = rand(10000, 99999);
-        // $code = 1000;
+        // $code = rand(10000, 99999);
+        $code = 1000;
         $mobile = $guaranteeForm->user->mobile;
         session()->put('guaranteFormCode', $code);
 

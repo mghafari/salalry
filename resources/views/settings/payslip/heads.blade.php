@@ -32,6 +32,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>عنوان</th>
+                                <th>جمع مزایا</th>
+                                <th>جمع کسورات</th>
+                                <th>جمع اقساط</th>
+                                <th>خالص پرداختی</th>
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
@@ -44,6 +48,46 @@
                                     <td>
                                         <input type="text" value="@if(isset($payslipHeadSetting)) {{ $payslipHeadSetting->title }} @endif" class="form-control" name="title" placeholder="عنوان تنظیمات جدید">
                                         @error('title')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </td>
+                                    <td>
+                                        <select name="place_total_benefit" id="" class="form-control">
+                                            @for ($i = 0; $i <= 100; $i++)
+                                                <option @if(isset($payslipHeadSetting) && $payslipHeadSetting->place_total_benefit == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                            @endfor
+                                        </select>
+                                        @error('place_total_benefit')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </td>
+                                    <td>
+                                        <select name="place_total_deduction" id="" class="form-control">
+                                            @for ($i = 0; $i <= 100; $i++)
+                                                <option @if(isset($payslipHeadSetting) && $payslipHeadSetting->place_total_deduction == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                            @endfor
+                                        </select>
+                                        @error('place_total_deduction')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </td>
+                                    <td>
+                                        <select name="place_total_installment" id="" class="form-control">
+                                            @for ($i = 0; $i <= 100; $i++)
+                                                <option @if(isset($payslipHeadSetting) && $payslipHeadSetting->place_total_installment == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                            @endfor
+                                        </select>
+                                        @error('place_total_installment')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </td>
+                                    <td>
+                                        <select name="place_net_paid" id="" class="form-control">
+                                            @for ($i = 0; $i <= 100; $i++)
+                                                <option @if(isset($payslipHeadSetting) && $payslipHeadSetting->place_net_paid == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                            @endfor
+                                        </select>
+                                        @error('place_net_paid')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </td>
@@ -68,6 +112,10 @@
                                 <tr class="text-center">
                                     <td>{{ $payslip_head->id }}</td>
                                     <td>{{ $payslip_head->title }}</td>
+                                    <td>{{ isset($payslip_head->place_total_benefit) ? Setting::getExcelColumn($payslip_head->place_total_benefit) : 'ثبت نشده' }}</td>
+                                    <td>{{ isset($payslip_head->place_total_deduction) ? Setting::getExcelColumn($payslip_head->place_total_deduction) : 'ثبت نشده' }}</td>
+                                    <td>{{ isset($payslip_head->place_total_installment) ? Setting::getExcelColumn($payslip_head->place_total_installment) : 'ثبت نشده' }}</td>
+                                    <td>{{ isset($payslip_head->place_net_paid) ? Setting::getExcelColumn($payslip_head->place_net_paid) : 'ثبت نشده' }}</td>
                                     <td>{{ PayslipHeadSetting::TITLE_STATUS[$payslip_head->status] }}</td>
                                     <td>
                                         <div class="d-flex">

@@ -11,6 +11,10 @@ class PayslipHeadSetting extends Model
 
     protected $fillable = [
         'title',
+        'place_total_benefit',
+        'place_total_deduction',
+        'place_total_installment',
+        'place_net_paid',
         'status'
     ];
 

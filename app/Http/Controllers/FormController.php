@@ -167,10 +167,11 @@ class FormController extends Controller
         ->orderBy('sort')->get();
 
 
-        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
-        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
-        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
-        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
+
+        $totalBenefit     = $payslipHeadImport->payslipHeadSetting->place_total_benefit ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_benefit)->first()->value : 0;
+        $totalDeduction   = $payslipHeadImport->payslipHeadSetting->place_total_deduction ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_deduction)->first()->value : 0;
+        $totalInstallment = $payslipHeadImport->payslipHeadSetting->place_total_installment ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_installment)->first()->value : 0;
+        $netPaid          = $payslipHeadImport->payslipHeadSetting->place_net_paid ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_net_paid)->first()->value : 0;
 
         return view('panel.fish.show',compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
     }
@@ -234,10 +235,11 @@ class FormController extends Controller
         ])
         ->orderBy('sort')->get();
 
-        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
-        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
-        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
-        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
+
+        $totalBenefit     = $payslipHeadImport->payslipHeadSetting->place_total_benefit ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_benefit)->first()->value : 0;
+        $totalDeduction   = $payslipHeadImport->payslipHeadSetting->place_total_deduction ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_deduction)->first()->value : 0;
+        $totalInstallment = $payslipHeadImport->payslipHeadSetting->place_total_installment ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_installment)->first()->value : 0;
+        $netPaid          = $payslipHeadImport->payslipHeadSetting->place_net_paid ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_net_paid)->first()->value : 0;
 
 
         return view('panel.fish.pdf', compact('payslipHeadImport','userInformationFields', 'installmentFields', 'benefitFields', 'deductionFields', 'totalBenefit', 'totalDeduction', 'totalInstallment', 'netPaid'));
@@ -329,10 +331,10 @@ class FormController extends Controller
         ->orderBy('sort')->get();
 
 
-        $totalBenefit     = Setting::where('key', 'TOTAL_BENEFIT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_BENEFIT')->first()->value)->first()->value : 0;
-        $totalDeduction   = Setting::where('key', 'TOTAL_DEDUCTION')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_DEDUCTION')->first()->value)->first()->value : 0;
-        $totalInstallment = Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'TOTAL_INSTALLMENT')->first()->value)->first()->value : 0;
-        $netPaid          = Setting::where('key', 'NET_PAID')->first()->value ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', Setting::where('key', 'NET_PAID')->first()->value)->first()->value : 0;
+        $totalBenefit     = $payslipHeadImport->payslipHeadSetting->place_total_benefit ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_benefit)->first()->value : 0;
+        $totalDeduction   = $payslipHeadImport->payslipHeadSetting->place_total_deduction ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_deduction)->first()->value : 0;
+        $totalInstallment = $payslipHeadImport->payslipHeadSetting->place_total_installment ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_total_installment)->first()->value : 0;
+        $netPaid          = $payslipHeadImport->payslipHeadSetting->place_net_paid ? PayslipImport::where('payslip_head_import_id', $payslipHeadImport->id)->where('index', $payslipHeadImport->payslipHeadSetting->place_net_paid)->first()->value : 0;
 
 
         if($user->role=='admin' or  $user->id == $payslipHeadImport->user_id )

@@ -13,8 +13,9 @@ class PayslipDetailSettingController extends Controller
     public function index(PayslipHeadSetting $payslipHeadSetting)
     {
         $payslipDetailSettings = PayslipSetting::where('payslip_head', $payslipHeadSetting->id)->paginate(20);
+        $payslipHeadSettingField = [$payslipHeadSetting->place_total_benefit, $payslipHeadSetting->place_total_deduction, $payslipHeadSetting->place_total_installment, $payslipHeadSetting->place_net_paid];
 
-        return view('settings.payslip.detail.index', compact('payslipDetailSettings', 'payslipHeadSetting'));
+        return view('settings.payslip.detail.index', compact('payslipDetailSettings', 'payslipHeadSetting', 'payslipHeadSettingField'));
     }
 
     public function store(PayslipHeadSetting $payslipHeadSetting, Request $request)
@@ -28,11 +29,17 @@ class PayslipDetailSettingController extends Controller
         ]);
 
         $payslip_setting = PayslipSetting::where('payslip_head', $payslipHeadSetting->id)->where('index', $request->index)->first();
+        $payslipHeadSettingField = [$payslipHeadSetting->place_total_benefit, $payslipHeadSetting->place_total_deduction, $payslipHeadSetting->place_total_installment, $payslipHeadSetting->place_net_paid];
 
         if ($payslip_setting)
         {
             return back()->with('error', 'برای این ستون رکورد ثبت شده است.');
         }
+
+        if (in_array($request->index, $payslipHeadSettingField)) {
+            return back()->with('error', 'جایگاه انتخاب شده قبلا در قسمت تنطیمات وارد شده است.');
+        }
+
 
         PayslipSetting::create([
             'payslip_head' => $payslipHeadSetting->id,
@@ -66,10 +73,15 @@ class PayslipDetailSettingController extends Controller
         ]);
 
         $payslip_setting = PayslipSetting::where('payslip_head', $payslipHeadSetting->id)->where('index', $request->index)->where('id', '!=', $payslipSetting->id)->first();
+        $payslipHeadSettingField = [$payslipHeadSetting->place_total_benefit, $payslipHeadSetting->place_total_deduction, $payslipHeadSetting->place_total_installment, $payslipHeadSetting->place_net_paid];
 
         if ($payslip_setting)
         {
             return back()->with('error', 'برای این ستون رکورد ثبت شده است.');
+        }
+
+        if (in_array($request->index, $payslipHeadSettingField)) {
+            return back()->with('error', 'جایگاه انتخاب شده قبلا در قسمت تنطیمات وارد شده است.');
         }
 
         $payslipSetting->update([

@@ -50,7 +50,9 @@
                                     <td>
                                         <select name="index" id="">
                                             @for ($i = 0; $i <= 100; $i++)
-                                                <option @if(isset($payslipSetting) && $payslipSetting->index == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                                @if(!in_array($i, $payslipHeadSettingField))
+                                                    <option @if(isset($payslipSetting) && $payslipSetting->index == $i)  selected @endif value="{{ $i }}">{{ Setting::getExcelColumn($i) }}</option>
+                                                @endif
                                             @endfor
                                         </select>
                                         @error('index')
