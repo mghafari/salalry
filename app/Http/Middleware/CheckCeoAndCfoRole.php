@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class CheckCeoAndCfoRole
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,7 @@ class Admin
         if(Auth::check())
         {
             $user=Auth::user();
-            if($user->role=='admin')
+            if($user->role=='ceo' || $user->role == 'admin' || $user->role == 'cfo')
             {
                 return $next($request);
 
@@ -31,10 +31,8 @@ class Admin
 
         }else
         {
-            return redirect()->route('login');
+            return route('login');
 
         }
-
-
     }
 }

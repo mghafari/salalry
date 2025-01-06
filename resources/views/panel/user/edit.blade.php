@@ -1,3 +1,6 @@
+@php
+    use App\Models\User;
+@endphp
 @extends('panel.main')
 @section('body')
     <div class="row page-titles mx-0">
@@ -78,6 +81,18 @@
                                            class="form-control" placeholder=""  value="{{$user->account_no}}">
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label>نقش </label>
+                                    <select class="form-control" name="role" id="role">
+                                        @foreach(User::ROLE_TITLE as $key => $value)
+                                            <option @if($key == $user->role) selected @endif value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>ماکزیمم مبلغ ضمانت حسابداری (ریال)</label>
+                                    <input class="form-control" type="text" name="max_guarantee_form" value="@if(isset($user->max_guarantee_form)) {{ $user->max_guarantee_form }} @endif">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label>وضعیت </label>
                                     <br>
                                     <input type="radio" name="status"
@@ -126,6 +141,7 @@
                                     <th>کد ملی </th>
 
                                     <th>موبایل  </th>
+                                    <th>نقش</th>
 
 
                                     <th>ویرایش  </th>
@@ -144,6 +160,7 @@
                                         <td>{{$user->national_code}}</td>
 
                                         <td>{{$user->mobile}}</td>
+                                        <td>{{ User::ROLE_TITLE[$user->role] }}</td>
 
                                         <td>
                                             <div class="d-flex">

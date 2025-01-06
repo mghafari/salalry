@@ -5,12 +5,14 @@
     <title>	شرکت حمل و نقل راه و جاده کرمان</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/panel//assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
 
 
 
     <link href="/panel/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="/panel/css/style.css" rel="stylesheet">
+    <link href="/panel/css/style.css?v=01" rel="stylesheet">
 
 
 
@@ -19,6 +21,13 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script>
+        toastr.options = {
+            "positionClass": "toast-bottom-left" // Change position here
+        };
+    </script>
     @yield('head')
 
 </head>

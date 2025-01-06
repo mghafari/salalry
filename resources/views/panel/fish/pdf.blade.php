@@ -36,13 +36,13 @@
                                 <span class="space"></span>
                                 <span>فیش حقوقی</span>
 
-                                <span>{{$form->year}}/{{$form->month}}</span>
+                                 <span>{{$payslipHeadImport->year}}/{{$payslipHeadImport->month}}</span>
                             </td>
                         </tr>
                         <tr>
                             <th>مشخصات پرسنل</th>
                             <th>وضعیت کارکرد</th>
-                            <th></th>
+                            <th>مزایا</th>
                             <th>شرح کسور</th>
                         </tr>
                         </thead>
@@ -56,62 +56,19 @@
                                         <td class="inf">
                                             <table>
                                                 <tbody>
-                                                <tr>
-                                                    <td>کد پرسنلی:</td>
-                                                    <td>
-                                                        {{$form->user->personal_code}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>نام:</td>
-                                                    <td>
-                                                        {{$form->user->name}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>نام خانوادگی:</td>
-                                                    <td>
-                                                        {{$form->user->family}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>عنوان:</td>
-                                                    <td>
-                                                        {{$form->onvan}}
-                                                    </td>
-                                                </tr>
-
+                                                    @foreach($userInformationFields as $userInformationField)
+                                                        @if(!($userInformationField->visible_zero && $userInformationField->value == 0))
+                                                            <tr>
+                                                                <td style="white-space: nowrap;">{{ $userInformationField->title }} :</td>
+                                                                <td>
+                                                                    {{ $userInformationField->value }}
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <table class="auto">
-                                                <tbody>
-                                                <tr>
-                                                    <td>کد ملی:</td>
-                                                    <td>
-                                                        {{$form->user->national_code}}
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>شماره حساب:</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>بانک رفاه:</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>شماره بیمه:</td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-
                                     </tr>
                                     </tbody>
                                 </table>
@@ -119,95 +76,50 @@
                             <td>
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td>کارکرد عادی:</td>
-                                        <td>{{$form->karkerd_adi}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>کارکرد موثر:</td>
-                                        <td>{{$form->karkerd_moaser}}</td>
-                                    </tr>
-
-                                    <td>غیبت:</td>
-                                    <td>{{$form->gheybat}}</td>
-                                    </tr>
+                                        @foreach($installmentFields as $installmentField)
+                                            @if(!($installmentField->visible_zero && $installmentField->value == 0))
+                                                <tr>
+                                                    <td>{{ $installmentField->title }} :</td>
+                                                    <td>{{ $installmentField->value }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </td>
                             <td rowspan="3">
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td>حقوق پایه:</td>
-                                        <td>{{number_format($form->hoghoghpaye)}} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>حق تاهل:</td>
-                                        <td>{{number_format($form->haghtahol)}} </td>
-                                    </tr>
-                                    <tr>
-                                    <tr>
-                                        <td>حق اولاد:</td>
-                                        <td>{{number_format($form->hagholad)}} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>حق ماموریت:</td>
-                                        <td>{{number_format($form->hagmamoriat)}} </td>
-                                    </tr>  <tr>
-                                        <td>حق ایاب و ذهاب :</td>
-                                        <td>{{number_format($form->haghayabzahab)}} </td>
-                                    </tr> <tr>
-                                        <td>حق سرپرستی :</td>
-                                        <td>{{number_format($form->haghsarparasti)}} </td>
-                                    </tr><tr>
-                                        <td>حق سنوات :</td>
-                                        <td>{{number_format($form->haghsanavat)}} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>جمعه کاری:</td>
-                                        <td>{{number_format($form->jomekari)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>تعطیل کاری:</td>
-                                        <td>{{number_format($form->tatilkari)}}</td>
-                                    </tr>
-                                    <tr>
-
+                                        @foreach($benefitFields as $benefitField)
+                                            @if(!($benefitField->visible_zero && $benefitField->value == 0))
+                                                <tr>
+                                                    <td>{{ $benefitField->title }} :</td>
+                                                    <td>{{ $benefitField->value }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </td>
                             <td rowspan="3">
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td>مالیات حقوق:</td>
-                                        <td>{{number_format($form->maliyatmah)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>بیمه سهم کارمند:</td>
-                                        <td>{{number_format($form->bimekarmand)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>بیمه تکمیلی:</td>
-                                        <td>{{number_format($form->bimetakmilikarmand)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>بیمه عمر:</td>
-                                        <td>{{number_format($form->bimeomrkarmand)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>سهام جهان فولاد:</td>
-                                        <td>{{number_format($form->jahanfolad)}}</td>
-                                    </tr>
-
-
-
+                                        @foreach($deductionFields as $deductionField)
+                                            @if(!($deductionField->visible_zero && $deductionField->value == 0))
+                                                <tr>
+                                                    <td>{{ $deductionField->title }} :</td>
+                                                    <td>{{ $deductionField->value }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td>مانده وام ها</td>
+                            <td>مانده وام ها:
+                                {{ fa_num($totalInstallment) }} ريال
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
@@ -222,9 +134,12 @@
                         </tr>
                         <tr>
                             <td>جمع حقوق و مزایا:
-                                {{number_format($form->jamekolmazayanakhales)}}
+                                {{ fa_num($totalBenefit) }} ريال
                             </td>
-                            <td></td>
+                            <td>
+                                جمع کسورات:
+                                {{ fa_num($totalDeduction) }} ريال
+                            </td>
                         </tr>
                         <tr>
 
@@ -237,11 +152,8 @@
                                         <td>
                                             خالص پرداختی:
 
-                                            {{number_format($form->khalesepardakhti)}}
+                                            {{ fa_num($netPaid) }}    
                                             ريال
-                                        </td>
-                                        <td class="inf">
-                                            {{resolve('App\Helper\Number2Word')->numberToWords($form->khalesepardakhti ?? 0)}} ريال
                                         </td>
                                     </tr>
                                     </tbody>
@@ -250,6 +162,12 @@
                         </tr>
                         </tbody>
                     </table>
+                    <br>
+                    <a href="{{route('fish.print' , $payslipHeadImport)}}" target="_top">
+                        <button class="btn btn-success">
+                            پرینت
+                        </button>
+                    </a>
                 </div>
 
             </div>

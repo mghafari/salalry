@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Sms;
+use App\Models\Setting;
 use App\Models\User;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use function session;
 
@@ -48,6 +50,15 @@ class LoginController extends Controller
         {
             return back()->withErrors(' شماره مویایل وارد شده فعال نمی باشد');
         }
+
+        $loginSetting = Setting::where('key', 'LOGIN_USER')->first();
+
+        if ($loginSetting && $loginSetting->value == 'pass' && $user->role == 'user')
+        {
+            session()->put('userId', $user->id);
+            return view('login.password');
+        }
+
 
         $code = rand(10000, 99999);
         // dd($code);
@@ -120,6 +131,34 @@ class LoginController extends Controller
 
         // $this->validateForm($request);
 
+
+    }
+
+
+
+    public function loginPassword(Request $request)
+    {
+        if (!session()->has('userId')) {
+            return redirect()->route('login');
+        }
+
+        $user = User::find(session()->get('userId'));
+
+        if (!Hash::check($request->password, $user->password)) {
+            
+            return redirect()->route('login')->with('error', 'نام کاربری یا رمز شما اشتباه است.');
+        }
+
+        
+        Auth::login($user);
+
+        if($user->role=='admin')
+        {
+            return redirect(route('user.create'));
+
+        }
+
+        return redirect(route('user.fish' , $user));
 
     }
 
